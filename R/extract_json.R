@@ -14,12 +14,25 @@ json_to_df <- function(jsonfile) {
     stop("Please install missing package jsonlite.")
   }
 
+  # Import from json
   x <- jsonlite::fromJSON(jsonfile)
+
+  # Variable ids
   id <- x$dataset$dimension$id
   ids <- x$dataset$dimension[id]
+
+  # Variables from dimension
   dim_cat <- lapply(ids, "[[", "category")
   dim_lab <- lapply(dim_cat, "[[", "label")
-  dim_df <- do.call(expand.grid, dim_lab)
-  ds_df <- as.data.frame(x$dataset[setdiff(names(x$dataset), "dimension")])
+  dim_dc <- do.call(expand.grid, dim_lab)
+  dim_ul <- sapply(dim_dc, unlist)
+  dim_df <- as.data.frame(dim_ul, row.names = FALSE)
+
+  # Dataset metadata and values
+  ds_nd <- x$dataset[setdiff(names(x$dataset), "dimension")]
+  ds_ul <- sapply(ds_nd, unlist)
+  ds_df <- as.data.frame(ds_ul)
+
+  # Merge two data.frames
   data.frame(dim_df, ds_df)
 }
