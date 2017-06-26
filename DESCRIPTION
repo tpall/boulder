@@ -1,0 +1,12 @@
+Package: boulder
+Type: Package
+Title: Import Json From Estonian Health Statistics
+Version: 0.1.0
+Author: Taavi Päll
+Maintainer: Taavi Päll <taavi.pall@credibleinterval.ee>
+Description: Importing Json Data From Estonian Health Statistics And Health Research Database. 
+  Name 'Boulder' is from Brand Estonia toolbox [boulders](https://brand.estonia.ee/design/boulders/). 
+License: CC
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
