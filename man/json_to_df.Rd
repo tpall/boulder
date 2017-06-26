@@ -17,6 +17,7 @@ Extract data from json file downloaded from Estonian Health Statistics database
 }
 \examples{
 
-pk10 <- json_to_df(system.file("extdata", "PK10.json", package = "boulder", mustWork = TRUE))
+path_to_PK10.json <- system.file("extdata", "PK10.json", package = "boulder", mustWork = TRUE)
+pk10 <- json_to_df(path_to_PK10.json)
 
 }
