@@ -4,10 +4,10 @@
 \alias{json_to_df}
 \title{Extract data from json file downloaded from Estonian Health Statistics database}
 \usage{
-json_to_df(x)
+json_to_df(jsonfile)
 }
 \arguments{
-\item{x}{A complex json file.}
+\item{jsonfile}{A path to json file, character string.}
 }
 \value{
 Returns data.frame in the long format.
@@ -17,8 +17,6 @@ Extract data from json file downloaded from Estonian Health Statistics database
 }
 \examples{
 
-library(jsonlite)
-pk10js <- fromJSON(system.file("extdata", "PK10.json", package = "boulder", mustWork = TRUE))
-pk10 <- json_to_df(pk10js)
+pk10 <- json_to_df(system.file("extdata", "PK10.json", package = "boulder", mustWork = TRUE))
 
 }

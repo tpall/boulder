@@ -1,22 +1,24 @@
 #' Extract data from json file downloaded from Estonian Health Statistics database
 #'
-#' @param x A complex json file.
+#' @param jsonfile A path to json file, character string.
 #' @return Returns data.frame in the long format.
 #' @examples
 #'
-#' library(jsonlite)
-#' pk10js <- fromJSON(system.file("extdata", "PK10.json", package = "boulder", mustWork = TRUE))
-#' pk10 <- json_to_df(pk10js)
+#' pk10 <- json_to_df(system.file("extdata", "PK10.json", package = "boulder", mustWork = TRUE))
 #'
-json_to_df <- function(x) {
+#' @export
+json_to_df <- function(jsonfile) {
+
+  if(!requireNamespace("jsonlite", quietly = TRUE)){
+    stop("Please install missing package jsonlite.")
+  }
+
+  x <- jsonlite::fromJSON(jsonfile)
   id <- x$dataset$dimension$id
   ids <- x$dataset$dimension[id]
-  ids_cat <- lapply(ids, "[[", "category")
-  ids_lab <- lapply(ids_cat, "[[", "label")
-  ids_df <- do.call(expand.grid, ids_lab)
-  ids_df$label <- x$dataset$label
-  ids_df$source <- x$dataset$source
-  ids_df$updated <- x$dataset$updated
-  ids_df$value <- x$dataset$value
-  return(ids_df)
-  }
+  dim_cat <- lapply(ids, "[[", "category")
+  dim_lab <- lapply(dim_cat, "[[", "label")
+  dim_df <- do.call(expand.grid, dim_lab)
+  ds_df <- as.data.frame(x$dataset[setdiff(names(x$dataset), "dimension")])
+  data.frame(dim_df, ds_df)
+}

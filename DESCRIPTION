@@ -2,6 +2,7 @@ Package: boulder
 Type: Package
 Title: Import Json From Estonian Health Statistics
 Version: 0.1.0
+Imports: jsonlite
 Author: Taavi Päll
 Maintainer: Taavi Päll <taavi.pall@credibleinterval.ee>
 Description: Importing Json Data From Estonian Health Statistics And Health Research Database. 
