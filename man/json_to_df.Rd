@@ -16,6 +16,7 @@ Returns data.frame in the long format.
 Extract data from json file downloaded from Estonian Health Statistics database
 }
 \examples{
+
 library(jsonlite)
 pk10js <- fromJSON(system.file("extdata", "PK10.json", package = "boulder", mustWork = TRUE))
 pk10 <- json_to_df(pk10js)
