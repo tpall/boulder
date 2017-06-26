@@ -4,7 +4,8 @@
 #' @return Returns data.frame in the long format.
 #' @examples
 #'
-#' pk10 <- json_to_df(system.file("extdata", "PK10.json", package = "boulder", mustWork = TRUE))
+#' path_to_PK10.json <- system.file("extdata", "PK10.json", package = "boulder", mustWork = TRUE)
+#' pk10 <- json_to_df(path_to_PK10.json)
 #'
 #' @export
 json_to_df <- function(jsonfile) {
