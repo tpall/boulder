@@ -29,7 +29,7 @@ json_to_df <- function(jsonfile) {
   dim_df <- as.data.frame(dim_ul, row.names = FALSE)
 
   # Dataset metadata and values
-  ds_nd <- x$dataset[setdiff(names(x$dataset), "dimension")]
+  ds_nd <- x$dataset[setdiff(names(x$dataset), c("dimension","status"))]
   ds_ul <- sapply(ds_nd, unlist)
   ds_df <- as.data.frame(ds_ul)
 
