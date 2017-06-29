@@ -1,4 +1,4 @@
-#' #' Interact with TAI API.
+#' Interact with TAI API.
 #'
 #' @param path API path relative to http://pxweb.tai.ee
 #' @param tidy convert response into data_frame
