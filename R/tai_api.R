@@ -122,10 +122,10 @@ get_tables <- function(dbi, node, table = NULL, lang = c("et", "en")) {
   path <- file.path("/PXWeb2015/api/v1/", lang)
 
 
-  if(is.null(id)){
-    path <- file.path(path, dbi, table)
+  if(is.null(table)){
+    path <- file.path(path, dbi, node)
   } else {
-    path <- file.path(path, dbi, table, id)
+    path <- file.path(path, dbi, node, table)
   }
 
   tai_api(path)
