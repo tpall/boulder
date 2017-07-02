@@ -60,7 +60,7 @@ list_variables <- function(lang = c("et","en"), verbose = TRUE){
     tidyr::unnest(tables, .drop = FALSE, .sep = "_")
 
   # Filter paths with tables (leave out empty paths)
-  db_tables <- dplyr::filter(db_tables, str_detect(tables_id, "px$"))
+  db_tables <- dplyr::filter(db_tables, stringr::str_detect(tables_id, "px$"))
 
   # Format for output
   db_tables  <- dplyr::select(db_tables, text, nodes_text, tables_text, tables_updated) %>%
