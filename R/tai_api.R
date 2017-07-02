@@ -128,13 +128,11 @@ get_tables <- function(dbi, node, table = NULL, lang = c("et", "en")) {
     path <- file.path(path, dbi, node)
   } else {
     if(!stringr::str_detect(table, "px$")){
-      table <- stringr::str_c("PK10", "px", sep = ".")
+      table <- stringr::str_c(table, "px", sep = ".")
     }
     path <- file.path(path, dbi, node, table)
   }
 
   tai_api(path)
 }
-
-
 
