@@ -46,16 +46,16 @@ list_variables <- function(lang = c("et","en"), verbose = TRUE){
     tidyr::unnest(nodes, .drop = FALSE, .sep = "_")
 
   # Fix spaces in URL
-  db_nodes <- dplyr::mutate_at(db_nodes, "nodes_id", ~purrr::map_chr(.x, stringr::str_replace_all, " ", "%20"))
+  db_nodes <- dplyr::mutate_at(db_nodes, "nodes_id", ~stringr::str_replace_all(.x, " ", "%20"))
   # Fix node name
-  db_nodes <- dplyr::mutate_at(db_nodes, "nodes_text", ~purrr::map_chr(.x, stringr::str_replace_all, "\\&auml\\;", "\u00E4"))
+  db_nodes <- dplyr::mutate_at(db_nodes, "nodes_text", ~stringr::str_replace_all(.x, "\\&auml\\;", "\u00E4"))
 
   # Get tables at nodes
   if(verbose){
     message("Getting list of tables.")
   }
 
-  db_tables <- dplyr::mutate(db_nodes, tables = purrr::map2(dbid, nodes_id, get_tables, lang = lang))
+  db_tables <- dplyr::mutate(db_nodes, tables = purrr::map2(dbid, nodes_id, ~get_tables(dbi = .x, node = .y, lang = lang)))
   db_tables <- dplyr::mutate(db_tables, tables = purrr::map(tables, "content")) %>%
     tidyr::unnest(tables, .drop = FALSE, .sep = "_")
 
@@ -63,7 +63,7 @@ list_variables <- function(lang = c("et","en"), verbose = TRUE){
   db_tables <- dplyr::filter(db_tables, stringr::str_detect(tables_id, "px$"))
 
   # Format for output
-  db_tables  <- dplyr::select(db_tables, text, nodes_text, tables_text, tables_updated) %>%
+  db_tables  <- dplyr::select(db_tables, text, nodes_id, tables_text, tables_updated) %>%
     magrittr::set_colnames(c("Database","Node", "tables_text", "Updated")) %>%
     tidyr::separate(tables_text, into = c("Name", "Title"), sep = ": ")
 
