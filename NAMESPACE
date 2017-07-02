@@ -3,7 +3,7 @@
 export(get_available_databases)
 export(get_nodes)
 export(get_tables)
-export(json_to_df)
+export(json_todf)
 export(list_variables)
 export(tai_api)
 importFrom(magrittr,"%>%")
