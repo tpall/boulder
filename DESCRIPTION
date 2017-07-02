@@ -1,6 +1,6 @@
 Package: boulder
 Type: Package
-Title: Import Json From Estonian Health Statistics
+Title: Import Data From Estonian Health Statistics And Health Research Database
 Version: 0.1.0
 Imports: 
     dplyr,
@@ -11,7 +11,7 @@ Imports:
     tidyr
 Author: Taavi Päll
 Maintainer: Taavi Päll <taavi.pall@credibleinterval.ee>
-Description: Importing Json Data From Estonian Health Statistics And Health Research Database. 
+Description: Quering And Importing Data From Estonian Health Statistics And Health Research Database. 
   Name 'Boulder' is from Brand Estonia toolbox [boulders](https://brand.estonia.ee/design/boulders/). 
 License: CC
 Encoding: UTF-8

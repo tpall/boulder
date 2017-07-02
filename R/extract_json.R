@@ -1,4 +1,4 @@
-#' Extract data from json file downloaded from Estonian Health Statistics database
+#' Extract data from json file downloaded from Estonian Health Statistics and Health Research database
 #'
 #' @param jsonfile A path to json file, character string.
 #' @return Returns data.frame in the long format.
@@ -9,10 +9,6 @@
 #'
 #' @export
 json_to_df <- function(jsonfile) {
-
-  if(!requireNamespace("jsonlite", quietly = TRUE)){
-    stop("Please install missing package jsonlite.")
-  }
 
   # Import from json
   x <- jsonlite::fromJSON(jsonfile)
@@ -26,13 +22,13 @@ json_to_df <- function(jsonfile) {
   dim_lab <- lapply(dim_cat, "[[", "label")
   dim_dc <- do.call(expand.grid, dim_lab)
   dim_ul <- sapply(dim_dc, unlist)
-  dim_df <- as.data.frame(dim_ul, row.names = FALSE)
+  dim_df <- dplyr::as_data_frame(dim_ul, row.names = FALSE)
 
   # Dataset metadata and values
   ds_nd <- x$dataset[setdiff(names(x$dataset), c("dimension","status"))]
   ds_ul <- sapply(ds_nd, unlist)
-  ds_df <- as.data.frame(ds_ul)
+  ds_df <- dplyr::as_data_frame(ds_ul)
 
   # Merge two data.frames
-  data.frame(dim_df, ds_df)
+  dplyr::data_frame(dim_df, ds_df)
 }
