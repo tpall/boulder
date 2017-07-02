@@ -22,7 +22,7 @@ A data_frame with following columns:
 }
 }
 \description{
-Lists available variables tables in TAI/National Institute for Health Development database.
+Lists available databases, nodes and variables in TAI/National Institute for Health Development database.
 }
 \examples{
 \dontrun{
