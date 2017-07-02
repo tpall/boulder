@@ -2,7 +2,7 @@
 % Please edit documentation in R/tai_api.R
 \name{tai_api}
 \alias{tai_api}
-\title{#' Interact with TAI API.}
+\title{Interact with TAI API.}
 \usage{
 tai_api(path)
 }
@@ -18,7 +18,7 @@ API response object with three slots:
 - response query response
 }
 \description{
-#' Interact with TAI API.
+Interact with TAI API.
 }
 \examples{
 # Return available databases
