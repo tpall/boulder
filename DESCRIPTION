@@ -4,6 +4,7 @@ Title: Import Data From Estonian Health Statistics And Health Research Database
 Version: 0.1.0
 Imports: 
     dplyr,
+    httr,
     jsonlite,
     magrittr,
     purrr,
@@ -13,7 +14,7 @@ Author: Taavi Päll
 Maintainer: Taavi Päll <taavi.pall@credibleinterval.ee>
 Description: Quering And Importing Data From Estonian Health Statistics And Health Research Database. 
   Name 'Boulder' is from Brand Estonia toolbox [boulders](https://brand.estonia.ee/design/boulders/). 
-License: CC
+License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1

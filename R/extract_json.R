@@ -30,5 +30,5 @@ json_to_df <- function(jsonfile) {
   ds_df <- dplyr::as_data_frame(ds_ul)
 
   # Merge two data.frames
-  dplyr::data_frame(dim_df, ds_df)
+  dplyr::bind_cols(dim_df, ds_df)
 }

@@ -4,7 +4,7 @@
 \alias{print.tai_api}
 \title{Print TAI API object}
 \usage{
-\method{print}{tai_api}(x, ...)
+\method{print}{tai_api}(x)
 }
 \arguments{
 \item{x}{object of class tai_api}

@@ -8,8 +8,6 @@ tai_api(path)
 }
 \arguments{
 \item{path}{API path relative to http://pxweb.tai.ee}
-
-\item{tidy}{convert response into data_frame}
 }
 \value{
 API response object with three slots:

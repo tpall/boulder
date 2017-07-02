@@ -2,7 +2,7 @@
 % Please edit documentation in R/extract_json.R
 \name{json_to_df}
 \alias{json_to_df}
-\title{Extract data from json file downloaded from Estonian Health Statistics database}
+\title{Extract data from json file downloaded from Estonian Health Statistics and Health Research database}
 \usage{
 json_to_df(jsonfile)
 }
@@ -13,7 +13,7 @@ json_to_df(jsonfile)
 Returns data.frame in the long format.
 }
 \description{
-Extract data from json file downloaded from Estonian Health Statistics database
+Extract data from json file downloaded from Estonian Health Statistics and Health Research database
 }
 \examples{
 

@@ -1,7 +1,7 @@
 #' Interact with TAI API.
 #'
 #' @param path API path relative to http://pxweb.tai.ee
-#' @param tidy convert response into data_frame
+#'
 #' @return API response object with three slots:
 #' - content parsed query result
 #' - path query path
@@ -49,7 +49,9 @@ tai_api <- function(path) {
 
 #' Print TAI API object
 #' @param x object of class tai_api
-print.tai_api <- function(x, ...) {
+#' @importFrom utils "str"
+#'
+print.tai_api <- function(x) {
   cat("<Tervise Arengu Instituut ", x$path, ">\n", sep = "")
   str(x$content)
   invisible(x)

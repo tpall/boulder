@@ -15,10 +15,14 @@
 #' }
 #'
 #' @examples
+#' \dontrun{
 #' vars <- list_variables()
-#' # In RStudio, it is convinient to use View function
-#' View(vars)
 #'
+#' # In RStudio, it is convenient to use View function
+#' View(vars)
+#' }
+#'
+#' @importFrom magrittr "%>%"
 #' @export
 #'
 list_variables <- function(lang = c("et","en"), verbose = TRUE){
@@ -44,7 +48,7 @@ list_variables <- function(lang = c("et","en"), verbose = TRUE){
   # Fix spaces in URL
   db_nodes <- dplyr::mutate_at(db_nodes, "nodes_id", ~purrr::map_chr(.x, stringr::str_replace_all, " ", "%20"))
   # Fix node name
-  db_nodes <- dplyr::mutate_at(db_nodes, "nodes_text", ~purrr::map_chr(.x, stringr::str_replace_all, "\\&auml\\;", "ä"))
+  db_nodes <- dplyr::mutate_at(db_nodes, "nodes_text", ~purrr::map_chr(.x, stringr::str_replace_all, "\\&auml\\;", "\u00E4"))
 
   # Get tables at nodes
   if(verbose){
