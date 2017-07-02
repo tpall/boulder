@@ -3,9 +3,9 @@
 #' Lists available variables tables in TAI/National Institute for Health Development database.
 #'
 #' @param lang Language. Estonian 'et' or english 'en'. Affects table titles and variable names.
-#' @param verbose Display messages to track progress, defaults to TRUE.
+#' @param verbose Display messages to track query progress, defaults to TRUE.
 #'
-#' @return A data_frame with following columns
+#' @return A data_frame with following columns:
 #' \describe{
 #'   \item{Database}{Database name as available at TAI.}
 #'   \item{Node}{Database node name.}
