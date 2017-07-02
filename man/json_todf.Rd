@@ -2,6 +2,7 @@
 % Please edit documentation in R/extract_json.R
 \name{json_todf}
 \alias{json_todf}
+\alias{json_to_df}
 \title{Extract data from json file downloaded from Estonian Health Statistics and Health Research database}
 \usage{
 json_todf(jsonfile)
@@ -19,5 +20,4 @@ Extract data from json file downloaded from Estonian Health Statistics and Healt
 
 path_to_PK10.json <- system.file("extdata", "PK10.json", package = "boulder", mustWork = TRUE)
 pk10 <- json_todf(path_to_PK10.json)
-
 }
