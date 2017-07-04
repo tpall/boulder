@@ -39,6 +39,7 @@ list_variables <- function(lang = c("et","en"), verbose = TRUE){
 
   # Get nodes
   if(verbose){
+    message(cat("Found following databases:\n", paste(db_content$text, collapse = "\n ")))
     message("Getting list of database nodes.")
   }
 
@@ -52,6 +53,7 @@ list_variables <- function(lang = c("et","en"), verbose = TRUE){
 
   # Get tables at nodes
   if(verbose){
+    message(cat("Found following nodes:\n", paste(db_nodes$nodes_text, collapse = "\n ")))
     message("Getting list of tables.")
   }
 
