@@ -94,6 +94,9 @@ list_variables <- function(lang = c("et","en"), verbose = TRUE){
     tidyr::separate(tables_text, into = c("Name", "Title"), sep = ":") %>%
     dplyr::mutate_at(dplyr::vars(Name, Title), trimws)
 
+  ## Set the name for the class
+  class(db_tables) <- append(class(db_tables), "tai_tables")
+
   return(db_tables)
 }
 
