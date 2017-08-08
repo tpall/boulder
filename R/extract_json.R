@@ -8,7 +8,7 @@
 #' pk10 <- json_todf(path_to_PK10.json)
 #' @aliases json_to_df
 #' @export
-json_todf <- function(jsonfile) {
+json_to_df <- function(jsonfile) {
 
   # Import from json
   x <- jsonlite::fromJSON(jsonfile)
