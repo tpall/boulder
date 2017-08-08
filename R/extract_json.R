@@ -5,8 +5,7 @@
 #' @examples
 #'
 #' path_to_PK10.json <- system.file("extdata", "PK10.json", package = "boulder", mustWork = TRUE)
-#' pk10 <- json_todf(path_to_PK10.json)
-#' @aliases json_to_df
+#' pk10 <- json_to_df(path_to_PK10.json)
 #' @export
 json_to_df <- function(jsonfile) {
 
