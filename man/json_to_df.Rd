@@ -2,21 +2,24 @@
 % Please edit documentation in R/extract_json.R
 \name{json_to_df}
 \alias{json_to_df}
-\title{Extract data from json file downloaded from Estonian Health Statistics and Health Research database}
+\title{Convert json to data_frame.
+Extract data from json file downloaded from Estonian Health Statistics and Health Research database}
 \usage{
-json_to_df(jsonfile)
+json_to_df(json)
 }
 \arguments{
-\item{jsonfile}{A path to json file, character string.}
+\item{json}{A path to json file or json string, a character string.}
 }
 \value{
-Returns data.frame in the long format.
+Returns data_frame in the long format.
 }
 \description{
+Convert json to data_frame.
 Extract data from json file downloaded from Estonian Health Statistics and Health Research database
 }
 \examples{
 
 path_to_PK10.json <- system.file("extdata", "PK10.json", package = "boulder", mustWork = TRUE)
 pk10 <- json_to_df(path_to_PK10.json)
+
 }
