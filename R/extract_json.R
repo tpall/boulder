@@ -72,7 +72,7 @@ json_to_df <- function(json) {
   data <- dplyr::bind_cols(vars, values)
 
   ## Extract dataset label
-  label <- stringr::str_extract(dataset$label, "^.*(?= by)")
+  label <- stringr::str_extract(dataset$label, "^.*(?= by|---)") %>% trimws()
 
   ## Melt data and compose data frame
   meltedata <- reshape2::melt(data)
