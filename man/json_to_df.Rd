@@ -5,10 +5,12 @@
 \title{Convert json to data_frame.
 Extract data from json file downloaded from Estonian Health Statistics and Health Research database}
 \usage{
-json_to_df(json)
+json_to_df(json, tidy = FALSE)
 }
 \arguments{
 \item{json}{A path to json file or json string, a character string.}
+
+\item{tidy}{Logical. Return data in wide or long (tidy) format, see Details. Defaults to FALSE.}
 }
 \value{
 Returns data_frame in the long format.
@@ -16,6 +18,12 @@ Returns data_frame in the long format.
 \description{
 Convert json to data_frame.
 Extract data from json file downloaded from Estonian Health Statistics and Health Research database
+}
+\details{
+Returns data in the wide format by default because retrieved data
+can contain data intermingled with summary data. When table is large, it might
+be more convenient and efficient to identify and remove rows with summary
+variables before converting table into long format.
 }
 \examples{
 

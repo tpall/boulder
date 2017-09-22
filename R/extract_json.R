@@ -3,7 +3,12 @@
 #' Extract data from json file downloaded from Estonian Health Statistics and Health Research database
 #'
 #' @param json A path to json file or json string, a character string.
+#' @param tidy Logical. Return data in wide or long (tidy) format, see Details. Defaults to FALSE.
 #' @return Returns data_frame in the long format.
+#' @details Returns data in the wide format by default because retrieved data
+#' can contain data intermingled with summary data. When table is large, it might
+#' be more convenient and efficient to identify and remove rows with summary
+#' variables before converting table into long format.
 #' @examples
 #'
 #' path_to_PK10.json <- system.file("extdata", "PK10.json", package = "boulder", mustWork = TRUE)
@@ -16,7 +21,7 @@
 #' @importFrom reshape2 melt
 #' @export
 #'
-json_to_df <- function(json) {
+json_to_df <- function(json, tidy = FALSE) {
 
   ## Import from json
   x <- jsonlite::fromJSON(json)
@@ -75,11 +80,14 @@ json_to_df <- function(json) {
   label <- stringr::str_extract(dataset$label, "^.*(?= by|---)") %>% trimws()
 
   ## Melt data and compose data frame
-  meltedata <- reshape2::melt(data)
-  colnames(meltedata)[colnames(meltedata)=="variable"] <- tail(labels, 1)
-  meltedata$label <- label
-  meltedata$source <- source
-  meltedata$updated <- dataset$updated
-  meltedata
+  if(tidy){
+    data <- reshape2::melt(data)
+    colnames(meltedata)[colnames(data)=="variable"] <- tail(labels, 1)
+  }
+
+  data$label <- label
+  data$source <- source
+  data$updated <- dataset$updated
+  dplyr::as_data_frame(data)
 }
 
