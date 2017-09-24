@@ -40,3 +40,49 @@ extract_icd <- function(x){
 
   num_seq
 }
+
+
+#' Evaluates whether intersect between two vectors with ICD10 codes is longer than zero.
+#' @param x List of length two. Two character vectors with ICD10 codes.
+#' @return logical.
+#' @import stringr
+#' @import readr
+#' @importFrom purrr map
+#' @importFrom magrittr %>%
+icd_intersect <- function(x){
+
+  firstchr <- purrr::map(x, ~unique(stringr::str_extract(.x, "^[A-Z]"))) %>%
+    unlist() %>%
+    unique()
+
+  if(length(firstchr)>1) return(FALSE)
+
+  nums <- purrr::map(x, readr::parse_number)
+  equals_one <- vapply(nums, length, numeric(1)) == 1
+
+  if(sum(equals_one)==1){
+    nums[[which(!equals_one)]] <- floor(nums[[which(!equals_one)]])
+  }
+
+  length(intersect(nums[[1]], nums[[2]]))>0
+}
+
+#' Tries to identify nested ICD10 codes.
+#' @param site vector of character strings with embedded ICD10 codes.
+#' @return data_frame with two columns: "Parent" and "Site".
+#' @importFrom purrr map
+#' @importFrom dplyr as_data_frame
+#' @importFrom utils combn
+#' @export
+icd_sums <- function(site){
+  icd <- purrr::map(site, extract_icd)
+  icd_intersects <- utils::combn(icd, 2,
+                          icd_intersect,
+                          simplify = FALSE)
+  site_intersects <- utils::combn(site, 2, simplify = FALSE)
+
+  site_intersects_filtered <- site_intersects[unlist(icd_intersects)]
+  do.call(rbind, site_intersects_filtered) %>%
+    dplyr::as_data_frame() %>%
+    magrittr::set_colnames("Parent", "Site")
+}
