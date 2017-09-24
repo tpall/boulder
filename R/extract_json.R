@@ -32,9 +32,9 @@ json_to_df <- function(json, tidy = FALSE) {
   ## Get data source
   source <- dataset$source
 
-  ## Warn when data source in not "Estonian Health Board"
+  ## Message about data source
   if(!stringr::str_detect(source, "terviseamet")){
-    message(sprintf("Data source is not Estonian Health Board, www.terviseamet.ee, but %s.", source))
+    message(sprintf("Data source is %s.", source))
   }
 
   ## Variables dimensions and ids
