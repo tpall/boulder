@@ -73,6 +73,7 @@ icd_intersect <- function(x){
 #' @importFrom purrr map
 #' @importFrom dplyr as_data_frame
 #' @importFrom utils combn
+#' @importFrom magrittr set_colnames
 #' @export
 icd_sums <- function(site){
   icd <- purrr::map(site, extract_icd)
@@ -84,5 +85,5 @@ icd_sums <- function(site){
   site_intersects_filtered <- site_intersects[unlist(icd_intersects)]
   do.call(rbind, site_intersects_filtered) %>%
     dplyr::as_data_frame() %>%
-    magrittr::set_colnames("Parent", "Site")
+    magrittr::set_colnames(c("Parent", "Site"))
 }
