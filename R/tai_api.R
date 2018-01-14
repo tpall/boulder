@@ -3,8 +3,8 @@
 #' @param x a character vector
 unescape_html <- function(x) {
   stringr::str_c("<x>", x, "</x>") %>%
-    map(~ xml2::read_html(.x)) %>%
-    map_chr(~ xml2::xml_text(.x))
+    purrr::map(~ xml2::read_html(.x)) %>%
+    purrr::map_chr(~ xml2::xml_text(.x))
 }
 
 #' Interact with TAI API.
@@ -32,7 +32,7 @@ tai_api <- function(path) {
   parsed <- jsonlite::fromJSON(httr::content(resp, "text"))
 
   # Fix html text encoding
-  parsed <- dplyr::mutate_at(parsed, "text", unescape_html(text))
+  parsed <- dplyr::mutate_at(parsed, "text", unescape_html)
 
   if (httr::http_error(resp)) {
     stop(
