@@ -50,9 +50,6 @@ list_variables <- function(lang = c("et","en"), verbose = TRUE){
   # Fix spaces in URL
   db_nodes <- dplyr::mutate_at(db_nodes, "nodes_id", ~ stringr::str_replace_all(.x, " ", "%20"))
 
-  # Fix node name using https://stackoverflow.com/questions/5060076/convert-html-character-entity-encoding-in-r/35187962#35187962
-  db_nodes <- dplyr::mutate(db_nodes, nodes_text = purrr::map_chr(nodes_text, xml2::xml_text(xml2::read_html(paste0("<x>", str, "</x>")))))
-
   # Get tables at nodes
   if (verbose) {
     message(cat("Found following nodes:\n", paste(db_nodes$nodes_text, collapse = "\n ")))

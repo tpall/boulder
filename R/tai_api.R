@@ -1,3 +1,12 @@
+
+#' Fix html character encoding
+#' @param x a character vector
+unescape_html <- function(x) {
+  stringr::str_c("<x>", x, "</x>") %>%
+    map(~ xml2::read_html(.x)) %>%
+    map_chr(~ xml2::xml_text(.x))
+}
+
 #' Interact with TAI API.
 #'
 #' @param path API path relative to http://pxweb.tai.ee
@@ -21,6 +30,9 @@ tai_api <- function(path) {
   }
 
   parsed <- jsonlite::fromJSON(httr::content(resp, "text"))
+
+  # Fix html text encoding
+  parsed <- dplyr::mutate_at(parsed, "text", unescape_html(text))
 
   if (httr::http_error(resp)) {
     stop(
@@ -56,7 +68,6 @@ print.tai_api <- function(x) {
   str(x$content)
   invisible(x)
 }
-
 
 # Get available TAI databases ---------------------------------------------
 
