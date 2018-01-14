@@ -123,10 +123,6 @@ get_nodes <- function(dbi) {
 #' tab <- get_tables(dbi = "01Rahvastik", node = "03Abordid", lang = "en")
 #' tab
 #' tab$content
-#' # Return table metadata
-#' tab <- get_tables(dbi = "01Rahvastik", node = "03Abordid", table = "RK01.px", lang = "en")
-#' tab
-#' tab$content
 #' @export
 get_tables <- function(dbi, node, table = NULL, lang = c("et", "en")) {
 
