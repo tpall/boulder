@@ -37,10 +37,6 @@ One that contains the codes for the all the values of which the variable can ass
 tab <- get_tables(dbi = "01Rahvastik", node = "03Abordid", lang = "en")
 tab
 tab$content
-# Return table metadata
-tab <- get_tables(dbi = "01Rahvastik", node = "03Abordid", table = "RK01.px", lang = "en")
-tab
-tab$content
 }
 \references{
 \url{http://www.scb.se/contentassets/79c32c72783a4f67b202ad3189f921b9/api-description.pdf}

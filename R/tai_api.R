@@ -31,9 +31,6 @@ tai_api <- function(path) {
 
   parsed <- jsonlite::fromJSON(httr::content(resp, "text"))
 
-  # Fix html text encoding
-  parsed <- dplyr::mutate_at(parsed, "text", unescape_html)
-
   if (httr::http_error(resp)) {
     stop(
       sprintf(
@@ -123,13 +120,16 @@ get_nodes <- function(dbi) {
 #' tab <- get_tables(dbi = "01Rahvastik", node = "03Abordid", lang = "en")
 #' tab
 #' tab$content
+#' # List table metadata
+#' tab <- get_tables(dbi = "01Rahvastik", node = "03Abordid", table = "RK11.px", lang = "et")
+#' tab
+#' tab$content
 #' @export
 get_tables <- function(dbi, node, table = NULL, lang = c("et", "en")) {
 
   # Set language
   lang <- match.arg(lang)
   path <- file.path("/PXWeb2015/api/v1/", lang)
-
 
   if (is.null(table)) {
     path <- file.path(path, dbi, node)
