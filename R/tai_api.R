@@ -124,10 +124,10 @@ get_tables <- function(dbi, node, table = NULL, lang = c("et", "en")) {
   path <- file.path("/PXWeb2015/api/v1/", lang)
 
 
-  if(is.null(table)){
+  if (is.null(table)) {
     path <- file.path(path, dbi, node)
   } else {
-    if(!stringr::str_detect(table, "px$")){
+    if (!stringr::str_detect(table, "px$")) {
       table <- stringr::str_c(table, "px", sep = ".")
     }
     path <- file.path(path, dbi, node, table)

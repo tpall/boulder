@@ -33,7 +33,7 @@ json_to_df <- function(json, tidy = FALSE) {
   source <- dataset$source
 
   ## Message about data source
-  if(!stringr::str_detect(source, "terviseamet")){
+  if (!stringr::str_detect(source, "terviseamet")) {
     message(sprintf("Data source is %s.", source))
   }
 
@@ -43,7 +43,7 @@ json_to_df <- function(json, tidy = FALSE) {
   size <- dimension$size
 
   ## Extract categories
-  categories <- lapply(ids, function(i){
+  categories <- lapply(ids, function(i) {
     unlist(dimension[[i]]$category$label)
   })
 
@@ -57,7 +57,7 @@ json_to_df <- function(json, tidy = FALSE) {
   sizes <- vapply(categories, length, integer(1))
   sizesok <- all(mapply(all.equal, size, sizes))
 
-  if(!sizesok) {
+  if (!sizesok) {
     stop("Something is wrong with category dimensions!")
   }
 
@@ -80,9 +80,9 @@ json_to_df <- function(json, tidy = FALSE) {
   label <- stringr::str_extract(dataset$label, "^.*(?= by|---)") %>% trimws()
 
   ## Melt data and compose data frame
-  if(tidy){
+  if (tidy) {
     data <- reshape2::melt(data)
-    colnames(meltedata)[colnames(data)=="variable"] <- tail(labels, 1)
+    colnames(meltedata)[colnames(data) == "variable"] <- tail(labels, 1)
   }
 
   data$label <- label

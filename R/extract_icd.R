@@ -9,12 +9,12 @@
 #' @import readr
 #' @importFrom stats na.omit
 #' @export
-extract_icd <- function(x){
+extract_icd <- function(x) {
 
   icd <- unlist(stringr::str_extract_all(x, "[A-Z]?[0-9]{2}(\\.[0-9])?"))
 
-  if(length(icd) == 0) return(NA)
-  if(length(icd) == 1) return(icd)
+  if (length(icd) == 0) return(NA)
+  if (length(icd) == 1) return(icd)
 
   dash <- stringr::str_detect(x, "-")
   except <- stringr::str_detect(x, "except")
@@ -23,18 +23,18 @@ extract_icd <- function(x){
   chr <- unique(stringr::str_extract(icd, "[A-Z]"))
   chr <- stats::na.omit(chr)
 
-  if(dash){
+  if (dash) {
     num_range <- readr::parse_number(icd)
     num_seq <- as.character(seq(num_range[1], num_range[2]))
     num_seq <- ifelse(stringr::str_length(num_seq) == 1, stringr::str_c("0", num_seq), num_seq)
     num_seq <- stringr::str_c(chr, num_seq)
   }
 
-  if(except){
+  if (except) {
     num_seq <- setdiff(num_seq, icd[3])
   }
 
-  if(slash){
+  if (slash) {
     num_seq <- c(num_seq, stringr::str_c(chr, icd[3]))
   }
 
@@ -49,22 +49,22 @@ extract_icd <- function(x){
 #' @import readr
 #' @importFrom purrr map
 #' @importFrom magrittr %>%
-icd_intersect <- function(x){
+icd_intersect <- function(x) {
 
   firstchr <- purrr::map(x, ~unique(stringr::str_extract(.x, "^[A-Z]"))) %>%
     unlist() %>%
     unique()
 
-  if(length(firstchr)>1) return(FALSE)
+  if (length(firstchr) > 1) return(FALSE)
 
   nums <- purrr::map(x, readr::parse_number)
   equals_one <- vapply(nums, length, numeric(1)) == 1
 
-  if(sum(equals_one)==1){
+  if (sum(equals_one) == 1) {
     nums[[which(!equals_one)]] <- floor(nums[[which(!equals_one)]])
   }
 
-  length(intersect(nums[[1]], nums[[2]]))>0
+  length(intersect(nums[[1]], nums[[2]])) > 0
 }
 
 #' Tries to identify nested ICD10 codes.
@@ -75,7 +75,7 @@ icd_intersect <- function(x){
 #' @importFrom utils combn
 #' @importFrom magrittr set_colnames
 #' @export
-icd_sums <- function(site){
+icd_sums <- function(site) {
   icd <- purrr::map(site, extract_icd)
   icd_intersects <- utils::combn(icd, 2,
                           icd_intersect,

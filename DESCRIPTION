@@ -13,7 +13,8 @@ Imports:
     reshape2,
     rlang,
     readr,
-    stats
+    stats,
+    xml2
 Author: Taavi Päll
 Maintainer: Taavi Päll <taavi.pall@credibleinterval.ee>
 Description: Quering And Importing Data From Estonian Health Statistics And Health Research Database. 

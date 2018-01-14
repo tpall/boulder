@@ -1,3 +1,4 @@
+
 #' List available variables
 #'
 #' Lists available databases, nodes and variables in TAI/National Institute for Health Development database.
@@ -22,7 +23,7 @@
 #' View(vars)
 #' }
 #'
-#' @importFrom magrittr "%>%"
+#' @importFrom magrittr "%>%" set_colnames
 #' @export
 #'
 list_variables <- function(lang = c("et","en"), verbose = TRUE){
@@ -30,7 +31,7 @@ list_variables <- function(lang = c("et","en"), verbose = TRUE){
   lang <- match.arg(lang)
 
   # Get databases
-  if(verbose){
+  if (verbose) {
     message("Getting list of available databases.")
   }
 
@@ -38,21 +39,22 @@ list_variables <- function(lang = c("et","en"), verbose = TRUE){
   db_content <- dplyr::as_data_frame(db$content)
 
   # Get nodes
-  if(verbose){
+  if (verbose) {
     message(cat("Found following databases:\n", paste(db_content$text, collapse = "\n ")))
     message("Getting list of database nodes.")
   }
 
-  db_nodes <- dplyr::mutate(db_content, nodes = purrr::map(dbid, ~get_nodes(.x)$content)) %>%
+  db_nodes <- dplyr::mutate(db_content, nodes = purrr::map(dbid, ~ get_nodes(.x)$content)) %>%
     tidyr::unnest(nodes, .drop = FALSE, .sep = "_")
 
   # Fix spaces in URL
-  db_nodes <- dplyr::mutate_at(db_nodes, "nodes_id", ~stringr::str_replace_all(.x, " ", "%20"))
-  # Fix node name
-  db_nodes <- dplyr::mutate_at(db_nodes, "nodes_text", ~stringr::str_replace_all(.x, "\\&auml\\;", "\u00E4"))
+  db_nodes <- dplyr::mutate_at(db_nodes, "nodes_id", ~ stringr::str_replace_all(.x, " ", "%20"))
+
+  # Fix node name using https://stackoverflow.com/questions/5060076/convert-html-character-entity-encoding-in-r/35187962#35187962
+  db_nodes <- dplyr::mutate(db_nodes, nodes_text = purrr::map_chr(nodes_text, xml2::xml_text(xml2::read_html(paste0("<x>", str, "</x>")))))
 
   # Get tables at nodes
-  if(verbose){
+  if (verbose) {
     message(cat("Found following nodes:\n", paste(db_nodes$nodes_text, collapse = "\n ")))
     message("Getting list of tables.")
   }
@@ -60,7 +62,7 @@ list_variables <- function(lang = c("et","en"), verbose = TRUE){
   # Split db_nodes into max 30 rows, otherwise the server might choke
   db_nodessplit <- split(db_nodes, c(rep(1, 30), rep(2, nrow(db_nodes) - 30)))
 
-  qfun <- ~dplyr::mutate(.x, tables = purrr::map2(dbid, nodes_id, ~get_tables(dbi = .x, node = .y, lang = lang)))
+  qfun <- ~ dplyr::mutate(.x, tables = purrr::map2(dbid, nodes_id, ~get_tables(dbi = .x, node = .y, lang = lang)))
 
   db_tables1 <- purrr::map(db_nodessplit[1], qfun)
   db_tables2 <- purrr::map(db_nodessplit[2], qfun)
@@ -80,7 +82,7 @@ list_variables <- function(lang = c("et","en"), verbose = TRUE){
   db_deeptables <- dplyr::filter(db_tables, !stringr::str_detect(tables_id, "px$"))
   db_deeptables <- dplyr::mutate(db_deeptables, nodes_id = file.path(nodes_id, tables_id)) %>%
     dplyr::select(-dplyr::contains("tables")) %>%
-    dplyr::mutate(tables = purrr::map2(dbid, nodes_id, ~get_tables(dbi = .x, node = .y, lang = lang)))
+    dplyr::mutate(tables = purrr::map2(dbid, nodes_id, ~ get_tables(dbi = .x, node = .y, lang = lang)))
 
   db_deeptables <- unwrap_content(db_deeptables)
   db_deeptables <- dplyr::filter(db_deeptables, purrr::map_lgl(tables_id, stringr::str_detect, "px$"))
@@ -90,7 +92,7 @@ list_variables <- function(lang = c("et","en"), verbose = TRUE){
 
   # Format for output
   db_tables  <- dplyr::select(db_tables, text, nodes_id, tables_text, tables_updated) %>%
-    magrittr::set_colnames(c("Database","Node", "tables_text", "Updated")) %>%
+    set_colnames(c("Database","Node", "tables_text", "Updated")) %>%
     tidyr::separate(tables_text, into = c("Name", "Title"), sep = ":") %>%
     dplyr::mutate_at(dplyr::vars(Name, Title), trimws)
 
