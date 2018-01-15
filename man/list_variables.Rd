@@ -4,9 +4,11 @@
 \alias{list_variables}
 \title{List available variables}
 \usage{
-list_variables(lang = c("et", "en"), verbose = TRUE)
+list_variables(local = TRUE, lang = c("et", "en"), verbose = FALSE)
 }
 \arguments{
+\item{local}{whether to return package internal table of available datasets. A logical, defaults to TRUE.}
+
 \item{lang}{Language. Estonian 'et' or english 'en'. Affects table titles and variable names.}
 
 \item{verbose}{Display messages to track query progress, defaults to TRUE.}

@@ -90,4 +90,3 @@ json_to_df <- function(json, tidy = FALSE) {
   data$updated <- dataset$updated
   dplyr::as_data_frame(data)
 }
-

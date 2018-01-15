@@ -2,6 +2,7 @@ Package: boulder
 Type: Package
 Title: Import Data From Estonian Health Statistics And Health Research Database
 Version: 0.1.0
+Depends: R (>= 2.10)
 Imports: 
     dplyr,
     httr,

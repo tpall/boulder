@@ -3,6 +3,7 @@
 #'
 #' Lists available databases, nodes and variables in TAI/National Institute for Health Development database.
 #'
+#' @param local whether to return package internal table of available datasets. A logical, defaults to TRUE.
 #' @param lang Language. Estonian 'et' or english 'en'. Affects table titles and variable names.
 #' @param verbose Display messages to track query progress, defaults to TRUE.
 #'
@@ -25,10 +26,14 @@
 #'
 #' @importFrom magrittr "%>%" set_colnames
 #' @export
-#'
-list_variables <- function(lang = c("et","en"), verbose = TRUE){
+list_variables <- function(local = TRUE, lang = c("et", "en"), verbose = FALSE){
 
   lang <- match.arg(lang)
+
+  if (local) {
+    if (lang == "et") return(vars_et)
+    if (lang == "en") return(vars_en)
+  }
 
   # Get databases
   if (verbose) {
