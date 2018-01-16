@@ -16,3 +16,7 @@ response html response
 \description{
 List of available databases at TAI, wrapper around tai_api
 }
+\examples{
+db <- get_available_databases()
+db$content
+}

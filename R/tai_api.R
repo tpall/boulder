@@ -69,6 +69,10 @@ print.tai_api <- function(x) {
 #' @return content a data.frame of database ids and title
 #' @return path the path used in API query
 #' @return response html response
+#' @examples
+#' db <- get_available_databases()
+#' db$content
+#' @export
 #'
 get_available_databases <- function() {
   path <- "/PXWeb2015/api/v1/et"
@@ -78,6 +82,11 @@ get_available_databases <- function() {
 #' Get database nodes
 #' @param dbi TAI database id
 #' @return a data.frame with id, type - types of node object l and t where l is s sublevel and t is a table, text - textual description
+#' @examples
+#' dbi <- get_nodes("01Rahvastik")
+#' dbi
+#' dbi$content
+#' @export
 #'
 get_nodes <- function(dbi) {
   path <- file.path("/PXWeb2015/api/v1/et/", dbi)
@@ -100,6 +109,16 @@ get_nodes <- function(dbi) {
 #' One that contains the codes for the all the values of which the variable can assume and one list of all the presentation text for the values.
 #' @references \url{http://www.scb.se/contentassets/79c32c72783a4f67b202ad3189f921b9/api-description.pdf}
 #' @return a data.frame with id, type - types of node object l and t where l is s sublevel and t is a table, text - textual description
+#' @examples
+#' # List tables in nodes
+#' tab <- get_tables(dbi = "01Rahvastik", node = "03Abordid", lang = "en")
+#' tab
+#' tab$content
+#' # List table metadata
+#' tab <- get_tables(dbi = "01Rahvastik", node = "03Abordid", table = "RK11.px", lang = "et")
+#' tab
+#' tab$content
+#' @export
 #'
 get_tables <- function(dbi, node, table = NULL, lang = c("et", "en")) {
 

@@ -3,9 +3,13 @@
 #' Extracts ICD10 string and expands range when range of codes is shown.
 #' @param x character string containing ICD10 code.
 #' @return Character vector with ICD10 codes.
+#' @examples
+#' icd <- extract_icd("All malignant neoplasms (C00-C97)")
+#'
 #' @import stringr
 #' @import readr
 #' @importFrom stats na.omit
+#' @export
 #'
 extract_icd <- function(x) {
 

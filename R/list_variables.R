@@ -33,6 +33,7 @@ unwrap_content <- function(tab) {
 #' }
 #'
 #' @importFrom magrittr "%>%" set_colnames
+#' @export
 #'
 list_variables <- function(local = TRUE, lang = c("et", "en"), verbose = FALSE){
 
