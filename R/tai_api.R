@@ -96,6 +96,11 @@ get_nodes <- function(dbi) {
 #'
 get_tables <- function(dbi, node, table = NULL, lang = c("et", "en")) {
 
+  if (any(stringr::str_length(c(node, table)) == 0)) {
+    stop("Empty string provided as node and/or table name. To get tables, please supply valid
+         node and/or table name as function argument.")
+  }
+
   # Set language
   lang <- match.arg(lang)
   path <- file.path("/PXWeb2015/api/v1/", lang)
