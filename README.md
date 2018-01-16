@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/tpall/boulder.svg?branch=master)](https://travis-ci.org/tpall/boulder)
+[![Coverage Status](https://img.shields.io/codecov/c/github/tpall/boulder/master.svg)](https://codecov.io/github/tpall/boulder?branch=master)
 
 # boulder
 
