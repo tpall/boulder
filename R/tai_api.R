@@ -20,24 +20,16 @@ unescape_html <- function(x) {
 tai_api <- function(path) {
   url <- httr::modify_url("http://pxweb.tai.ee", path = path)
 
-  resp <- httr::GET(url)
+  resp <- httr::GET(url, httr::accept_json())
+  httr::stop_for_status(resp)
+
+  content <- httr::content(resp, "text")
+
   if (httr::http_type(resp) != "application/json") {
     stop("API did not return json", call. = FALSE)
   }
 
-  parsed <- jsonlite::fromJSON(httr::content(resp, "text"))
-
-  if (httr::http_error(resp)) {
-    stop(
-      sprintf(
-        "TAI API request failed [%s]\n%s\n<%s>",
-        status_code(resp),
-        parsed$message,
-        parsed$documentation_url
-      ),
-      call. = FALSE
-    )
-  }
+  parsed <- jsonlite::fromJSON(content)
 
   structure(
     list(
