@@ -22,4 +22,11 @@ test_that("API produces correct structure", {
 })
 
 
+context("Bundled data")
+
+testthat::test_that("Table with data table names has correct format", {
+  expect_is(vars_et, "data.frame")
+  expect_is(vars_en, "data.frame")
+})
+
 
