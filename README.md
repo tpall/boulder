@@ -23,7 +23,6 @@ pk10 <- json_to_df(path_to_PK10.json)
 Download table "RK01" from database:
 ``` r
 library(boulder)
-# Fetch available tables in database
 tabs <- get_all_tables(lang = "en")
 tabs
 #> # A tibble: 1,685 x 5
@@ -42,13 +41,12 @@ tabs
 #> # ... with 1,675 more rows, and 2 more variables: Title <chr>,
 #> #   Updated <chr>
 
-# Download RK01 table
 rk01 <- pull_table("RK01", lang = "en")
 #> Warning: JSON string contains (illegal) UTF8 byte-order-mark!
 rk01
 #> # A tibble: 3,876 x 4
 #>     Year  County    `Age group` Abortions
-#>    <chr>   <chr>          <chr>     <chr>
+#>    <chr>   <chr>          <chr>     <dbl>
 #>  1  2000 Estonia All age groups     15331
 #>  2  2000 Estonia          10-14        20
 #>  3  2000 Estonia          15-17       689
@@ -61,3 +59,4 @@ rk01
 #> 10  2000 Estonia          45-49       110
 #> # ... with 3,866 more rows
 ```
+
