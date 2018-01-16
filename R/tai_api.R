@@ -66,7 +66,14 @@ get_databases <- function() {
 #' @return a data.frame with id, type - types of node object l and t where l is s sublevel and t is a table, text - textual description
 #'
 get_nodes <- function(dbi) {
-  path <- file.path("/PXWeb2015/api/v1/et/", dbi)
+
+  if (stringr::str_length(dbi) == 0) {
+    stop("Empty string provided as database name. To get nodes, please supply valid
+         database name as function argument. Use get_databases() to download
+         valid database names.")
+  }
+
+  path <- file.path("/PXWeb2015/api/v1/et", dbi)
   tai_api(path)
 }
 
