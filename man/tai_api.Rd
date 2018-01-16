@@ -10,17 +10,11 @@ tai_api(path)
 \item{path}{API path relative to http://pxweb.tai.ee}
 }
 \value{
-API response object with three slots:
+Returns API response object with three slots:
 - content parsed query result
 - path query path
 - response query response
 }
 \description{
 Interact with TAI API.
-}
-\examples{
-# Return available databases
-path <- "/PXWeb2015/api/v1/et"
-db <- tai_api(path)
-db
 }

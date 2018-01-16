@@ -12,16 +12,10 @@ unescape_html <- function(x) {
 #'
 #' @param path API path relative to http://pxweb.tai.ee
 #'
-#' @return API response object with three slots:
+#' @return Returns API response object with three slots:
 #' - content parsed query result
 #' - path query path
 #' - response query response
-#' @examples
-#' # Return available databases
-#' path <- "/PXWeb2015/api/v1/et"
-#' db <- tai_api(path)
-#' db
-#' @export
 #'
 tai_api <- function(path) {
   url <- httr::modify_url("http://pxweb.tai.ee", path = path)

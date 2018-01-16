@@ -23,8 +23,8 @@ pk10 <- json_to_df(path_to_PK10.json)
 Download table "RK01" from database:
 ``` r
 library(boulder)
-vars <- list_variables()
-vars
+tabs <- get_all_tables()
+tabs
 #> # A tibble: 1,685 x 5
 #>       Database      Node  Name
 #>          <chr>     <chr> <chr>
@@ -40,7 +40,7 @@ vars
 #> 10 01Rahvastik  05Eluiga  OE12
 #> # ... with 1,675 more rows, and 2 more variables: Title <chr>,
 #> #   Updated <chr>
-rk01 <- dl_tai_table("RK01", lang = "et")
+rk01 <- pull_table("RK01", lang = "et")
 #> Warning: JSON string contains (illegal) UTF8 byte-order-mark!
 rk01
 #> # A tibble: 3,876 x 4
