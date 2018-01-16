@@ -64,7 +64,7 @@ print.tai_api <- function(x) {
 #' @return path the path used in API query
 #' @return response html response
 #'
-get_available_databases <- function() {
+get_databases <- function() {
   path <- "/PXWeb2015/api/v1/et"
   tai_api(path)
 }

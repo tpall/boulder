@@ -10,7 +10,7 @@ Install package from GitHub:
 devtools::install_github("tpall/boulder")
 ```
 
-Parse data from __json__ file downloaded from [Estonian Health Statistics Database](http://pxweb.tai.ee/PXWeb2015/index_en.html) into a data.frame.
+Parse data from __json__ file manually downloaded from [Estonian Health Statistics Database](http://pxweb.tai.ee/PXWeb2015/index_en.html) into a data.frame.
 
 ``` r
 library(boulder)
@@ -23,7 +23,8 @@ pk10 <- json_to_df(path_to_PK10.json)
 Download table "RK01" from database:
 ``` r
 library(boulder)
-tabs <- get_all_tables()
+# Fetch available tables in database
+tabs <- get_all_tables(lang = "en")
 tabs
 #> # A tibble: 1,685 x 5
 #>       Database      Node  Name
@@ -40,21 +41,23 @@ tabs
 #> 10 01Rahvastik  05Eluiga  OE12
 #> # ... with 1,675 more rows, and 2 more variables: Title <chr>,
 #> #   Updated <chr>
-rk01 <- pull_table("RK01", lang = "et")
+
+# Download RK01 table
+rk01 <- pull_table("RK01", lang = "en")
 #> Warning: JSON string contains (illegal) UTF8 byte-order-mark!
 rk01
 #> # A tibble: 3,876 x 4
-#>    Aasta Maakond         Vanuserühm Abordid
-#>    <chr>   <chr>              <chr>   <chr>
-#>  1  2000   Eesti Vanuserühmad kokku   15331
-#>  2  2000   Eesti              10-14      20
-#>  3  2000   Eesti              15-17     689
-#>  4  2000   Eesti              18-19    1168
-#>  5  2000   Eesti              20-24    3701
-#>  6  2000   Eesti              25-29    3545
-#>  7  2000   Eesti              30-34    2940
-#>  8  2000   Eesti              35-39    2158
-#>  9  2000   Eesti              40-44     996
-#> 10  2000   Eesti              45-49     110
+#>     Year  County    `Age group` Abortions
+#>    <chr>   <chr>          <chr>     <chr>
+#>  1  2000 Estonia All age groups     15331
+#>  2  2000 Estonia          10-14        20
+#>  3  2000 Estonia          15-17       689
+#>  4  2000 Estonia          18-19      1168
+#>  5  2000 Estonia          20-24      3701
+#>  6  2000 Estonia          25-29      3545
+#>  7  2000 Estonia          30-34      2940
+#>  8  2000 Estonia          35-39      2158
+#>  9  2000 Estonia          40-44       996
+#> 10  2000 Estonia          45-49       110
 #> # ... with 3,866 more rows
 ```
