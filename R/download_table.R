@@ -22,6 +22,7 @@ recode_vars <- function(var, lookup) {
 #'
 #' @importFrom magrittr "%>%"
 #' @export
+#'
 dl_tai_table <- function(variable, vars = NULL, lang = c("et", "en")) {
 
   lang <- match.arg(lang)

@@ -2,13 +2,11 @@
 #' Extract ICD10 string.
 #' Extracts ICD10 string and expands range when range of codes is shown.
 #' @param x character string containing ICD10 code.
-#' @examples
-#' icd <- extract_icd("All malignant neoplasms (C00-C97)")
 #' @return Character vector with ICD10 codes.
 #' @import stringr
 #' @import readr
 #' @importFrom stats na.omit
-#' @export
+#'
 extract_icd <- function(x) {
 
   icd <- unlist(stringr::str_extract_all(x, "[A-Z]?[0-9]{2}(\\.[0-9])?"))
@@ -74,7 +72,7 @@ icd_intersect <- function(x) {
 #' @importFrom dplyr as_data_frame
 #' @importFrom utils combn
 #' @importFrom magrittr set_colnames
-#' @export
+#'
 icd_sums <- function(site) {
   icd <- purrr::map(site, extract_icd)
   icd_intersects <- utils::combn(icd, 2,

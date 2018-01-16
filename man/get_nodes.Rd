@@ -15,8 +15,3 @@ a data.frame with id, type - types of node object l and t where l is s sublevel 
 \description{
 Get database nodes
 }
-\examples{
-dbi <- get_nodes("01Rahvastik")
-dbi
-dbi$content
-}

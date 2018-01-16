@@ -17,6 +17,3 @@ Character vector with ICD10 codes.
 Extract ICD10 string.
 Extracts ICD10 string and expands range when range of codes is shown.
 }
-\examples{
-icd <- extract_icd("All malignant neoplasms (C00-C97)")
-}

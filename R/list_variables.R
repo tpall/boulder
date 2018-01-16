@@ -1,4 +1,12 @@
 
+#' Extract table from downloaded content.
+#' @param tab a table to be unwrapped.
+#'
+unwrap_content <- function(tab) {
+  dplyr::mutate(tab, tables = purrr::map(tables, "content")) %>%
+    tidyr::unnest(tables, .drop = FALSE, .sep = "_")
+}
+
 #' List available variables
 #'
 #' Lists available databases, nodes and variables in TAI/National Institute for Health Development database.
@@ -25,7 +33,7 @@
 #' }
 #'
 #' @importFrom magrittr "%>%" set_colnames
-#' @export
+#'
 list_variables <- function(local = TRUE, lang = c("et", "en"), verbose = FALSE){
 
   lang <- match.arg(lang)
@@ -69,11 +77,6 @@ list_variables <- function(local = TRUE, lang = c("et", "en"), verbose = FALSE){
   db_tables1 <- purrr::map(db_nodessplit[1], qfun)
   db_tables2 <- purrr::map(db_nodessplit[2], qfun)
   db_tables <- dplyr::bind_rows(db_tables1, db_tables2)
-
-  unwrap_content <- function(tab) {
-    dplyr::mutate(tab, tables = purrr::map(tables, "content")) %>%
-      tidyr::unnest(tables, .drop = FALSE, .sep = "_")
-  }
 
   db_tables <- unwrap_content(db_tables)
 
