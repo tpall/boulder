@@ -229,5 +229,6 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
   value <- setdiff(colnames(data), names(valuetexts))
   data %>%
     dplyr::select(value) %>%
+    dplyr::mutate_all(as.numeric) %>%
     dplyr::bind_cols(recoded_vars, .)
 }
