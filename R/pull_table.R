@@ -1,4 +1,12 @@
 
+#' Extract table from downloaded content.
+#' @param tab a table to be unwrapped.
+#'
+unwrap_content <- function(tab) {
+  dplyr::mutate(tab, tables = purrr::map(tables, "content")) %>%
+    tidyr::unnest(tables, .drop = FALSE, .sep = "_")
+}
+
 #' Map get_tables function
 #' @param x dbid
 #' @param y nodes_id
