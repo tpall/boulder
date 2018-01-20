@@ -3,6 +3,11 @@
 
 # boulder
 
+Quering and downloading data from Estonian Health Statistics And Health Research Database (TAI). 
+Package interacts with pxweb API at TAI, queries for available tables in database and allows downloads based on table name. 
+There is also official pxweb API package [rOpenGov/pxweb](https://github.com/rOpenGov/pxweb) allowing interactive browsing trough databases.
+Name 'Boulder' is from Brand Estonia toolbox [boulders](https://brand.estonia.ee/design/boulders/).
+
 
 > bouldeR: In our nature, the giant erratic boulders appear unexpectedly in the forest or on the beach. In our visual communication, they play a similar disruptive role. The use of boulders is not compulsory. [Brand Estonia](https://brand.estonia.ee/design/boulders/)
 

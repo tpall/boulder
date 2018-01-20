@@ -24,7 +24,7 @@ A data_frame with following columns:
 }
 }
 \description{
-Lists databases, nodes and tables in Estonian National Institute for Health Development (Tervisearengu instituut, TAI) database.
+Lists databases, nodes and tables in Estonian National Institute for Health Development (Tervise Arengu Instituut, TAI) database.
 }
 \examples{
 \dontrun{

@@ -16,7 +16,7 @@ table is used.}
 \item{lang}{Language, a character string. "et" -- Estonian, "en" -- English.}
 }
 \description{
-Downloads data table in Estonian National Institute for Health Development (Tervisearengu instituut, TAI) database.
+Downloads data table in Estonian National Institute for Health Development (Tervise Arengu Instituut, TAI) database.
 }
 \examples{
 # Download data for table 'RK01'
