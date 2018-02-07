@@ -199,7 +199,7 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
   url <- httr::modify_url("http://pxweb.tai.ee", path = path)
 
   # Run query
-  resp <- httr::POST(url = url, body = json)
+  resp <- httr::POST(url = url, body = json, user_agent("Mozilla/5.0"))
 
   # Stop if query not successful
   httr::stop_for_status(resp)
