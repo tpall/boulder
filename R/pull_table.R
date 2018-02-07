@@ -200,6 +200,10 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
 
   # Run query
   resp <- httr::POST(url = url, body = json)
+
+  # Stop if query not successful
+  httr::stop_for_status(resp)
+
   jsonresponse <- httr::content(resp, "text") %>% jsonlite::fromJSON()
   columns <- jsonresponse$columns
   data <- jsonresponse$data
