@@ -127,13 +127,18 @@ get_all_tables <- function(local = TRUE, lang = c("et", "en"), verbose = FALSE){
 }
 
 #' Recode downloaded variables
-#' @param var original variable, atomic vector.
-#' @param lookup named list with original variable and replacement.
-recode_vars <- function(var, lookup) {
-  do.call(dplyr::recode, c(list(var), lookup))
+#' @param vector_to_modify A vector to modify.
+#' @param replacements Replacements.
+#' @importFrom glue glue
+recode_vars <- function(vector_to_modify, replacements) {
+  rs <- glue::glue("'{replacements}' = '{names(replacements)}'")
+  rs <- stringr::str_c(rs, collapse = ",")
+  expr <- glue::glue("recode(vector_to_modify, {rs})")
+  eval(parse(text = expr))
 }
 
 #' Check vars that can be eliminated
+#' @param x metadata from pxweb database, a data frame.
 eliminate <- function(x) {
   dplyr::filter(x, purrr::map_lgl(elimination, isTRUE))
 }
@@ -228,7 +233,9 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
   jsonresponse <- httr::content(resp, "text") %>% jsonlite::fromJSON()
   columns <- jsonresponse$columns
   data <- jsonresponse$data
-  data <- dplyr::as_data_frame(data) %>% tidyr::unnest(values)
+  data <- dplyr::as_data_frame(data) %>%
+    tidyr::unnest(values) %>%
+    dplyr::mutate_at("values", readr::parse_number)
   data <- do.call(rbind, data$key) %>%
     dplyr::as_data_frame() %>%
     dplyr::bind_cols(dplyr::data_frame(data$values))

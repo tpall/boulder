@@ -4,12 +4,12 @@
 \alias{recode_vars}
 \title{Recode downloaded variables}
 \usage{
-recode_vars(var, lookup)
+recode_vars(vector_to_modify, replacements)
 }
 \arguments{
-\item{var}{original variable, atomic vector.}
+\item{vector_to_modify}{A vector to modify.}
 
-\item{lookup}{named list with original variable and replacement.}
+\item{replacements}{Replacements.}
 }
 \description{
 Recode downloaded variables
