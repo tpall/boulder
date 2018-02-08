@@ -133,6 +133,18 @@ recode_vars <- function(var, lookup) {
   do.call(dplyr::recode, c(list(var), lookup))
 }
 
+#' Check vars that can be eliminated
+eliminate <- function(x) {
+  dplyr::filter(x, purrr::map_lgl(elimination, isTRUE))
+}
+
+# Create list for pxweb query
+px_querylist <- function(code, values) {
+  list(code = code,
+       selection = list(filter = "item",
+                        values = values))
+}
+
 #' Download data table from TAI
 #'
 #' Downloads data table in Estonian National Institute for Health Development (Tervise Arengu Instituut, TAI) database.
@@ -168,26 +180,32 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
     dplyr::mutate(resp = purrr::pmap(list(Database, Node, Name), get_tables, lang = lang),
                   metadata = purrr::map(resp, ~ .x$content$variables))
 
-  valuetexts <- md[["metadata"]][[1]] %>%
+  md_unnested <- md %>% tidyr::unnest(metadata)
+
+  # Variables legend
+  valuetexts <- md_unnested %>%
     dplyr::select(text, values, valueTexts) %>%
-    dplyr::as_data_frame() %>%
     tidyr::unnest() %>%
     dplyr::group_by(text) %>%
-    split(.$text) %>%
-    purrr::map(~ tidyr::spread(.x, key = "text", value = "values"))
+    tidyr::nest() %>%
+    dplyr::mutate(data = purrr::map2(data, text, ~ {colnames(.x)[1] <- .y; .x}))
 
-  metadata <- md %>%
-    dplyr::mutate(metadata = purrr::map(metadata, ~ dplyr::filter(.x, purrr::map_lgl(elimination, isTRUE)))) %>%
-    "[["("metadata") %>%
-    unlist(recursive = FALSE) %>%
-    purrr::map(unlist)
+  # Filter out summary stats with values == 0
+  metadata <- md_unnested %>%
+    eliminate() %>%
+    tidyr::unnest() %>%
+    dplyr::filter(values > 0) %>%
+    dplyr::select(code, values) %>%
+    dplyr::group_by(code) %>%
+    tidyr::nest(.key = "values") %>%
+    dplyr::mutate(values = purrr::map(values, 1))
 
   # Create json structure
-  query <- list(code = metadata$code,
-                selection = list(filter = "item",
-                                 values = metadata$values))
+  query <- metadata %>%
+    dplyr::mutate(query = purrr::map2(code, values, px_querylist)) %>%
+    dplyr::pull(query)
 
-  json <- list(query = list(query),
+  json <- list(query = query,
                response = list(format = "json")) %>%
     jsonlite::toJSON(pretty = TRUE, auto_unbox = TRUE)
 
@@ -202,7 +220,7 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
   resp <- httr::POST(url = url, body = json)
 
   # Stop if query not successful
-  httr::stop_for_status(resp)
+  httr::stop_for_status(resp, task = "download table.")
 
   jsonresponse <- httr::content(resp, "text") %>% jsonlite::fromJSON()
   columns <- jsonresponse$columns
@@ -214,25 +232,25 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
   colnames(data) <- columns$text
 
   # Recode variables
-  toberecoded <- intersect(colnames(data), names(valuetexts))
+  toberecoded <- intersect(colnames(data), valuetexts$text)
   tablist <- data %>%
     dplyr::select(toberecoded) %>%
     rlang::as_list(.)
 
-  repl <- valuetexts %>%
+  repl <- valuetexts$data %>%
     purrr::map(~ split(.x[[1]], .x[[2]])) %>%
     purrr::map(unlist) %>%
-    .[names(tablist)]
+    rlang::set_names(names(tablist))
 
   recoded_vars <- dplyr::data_frame(tablist, repl) %>%
     dplyr::mutate(recoded = purrr::map2(tablist, repl, recode_vars)) %>%
-    "[["("recoded") %>%
+    dplyr::pull(recoded) %>%
     dplyr::bind_cols()
 
   # Merge recoded variables with values
-  value <- setdiff(colnames(data), names(valuetexts))
+  value <- setdiff(colnames(data), valuetexts$text)
   data %>%
     dplyr::select(value) %>%
-    dplyr::mutate_all(as.numeric) %>%
+    dplyr::mutate_all(readr::parse_number) %>%
     dplyr::bind_cols(recoded_vars, .)
 }

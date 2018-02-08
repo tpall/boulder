@@ -4,4 +4,5 @@ utils::globalVariables(c("dbid", "nodes", "nodes_id",
                          "text", "nodes_text", "tables_text",
                          "tables_updated", "status_code",
                          "Name", "Title", "Database", "Node",
-                         "code", "values", "valueTexts", "."))
+                         "code", "values", "valueTexts", "elimination",
+                         "recoded", "."))
