@@ -133,7 +133,7 @@ get_all_tables <- function(local = TRUE, lang = c("et", "en"), verbose = FALSE){
 recode_vars <- function(vector_to_modify, replacements) {
   rs <- glue::glue("'{replacements}' = '{names(replacements)}'")
   rs <- stringr::str_c(rs, collapse = ",")
-  expr <- glue::glue("recode(vector_to_modify, {rs})")
+  expr <- glue::glue("dplyr::recode(vector_to_modify, {rs})")
   eval(parse(text = expr))
 }
 
@@ -190,12 +190,12 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
   md_unnested <- md %>% tidyr::unnest(metadata)
 
   # Variables legend
-  valuetexts <- md_unnested %>%
-    dplyr::select(text, values, valueTexts) %>%
+  valuecodes <- md_unnested %>%
+    dplyr::select(code, values, valueTexts) %>%
     tidyr::unnest() %>%
-    dplyr::group_by(text) %>%
+    dplyr::group_by(code) %>%
     tidyr::nest() %>%
-    dplyr::mutate(data = purrr::map2(data, text, ~ {colnames(.x)[1] <- .y; .x}))
+    dplyr::mutate(data = purrr::map2(data, code, ~ {colnames(.x)[1] <- .y; .x}))
 
   # Filter out summary stats with values > 0
   metadata <- md_unnested %>%
@@ -240,15 +240,15 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
   data <- do.call(rbind, data$key) %>%
     dplyr::as_data_frame() %>%
     dplyr::bind_cols(dplyr::data_frame(data$values))
-  colnames(data) <- columns$text
+  colnames(data) <- columns$code
 
   # Recode variables
-  toberecoded <- intersect(colnames(data), valuetexts$text)
+  toberecoded <- intersect(colnames(data), valuecodes$code)
   tablist <- data %>%
     dplyr::select(toberecoded) %>%
     rlang::as_list(.)
 
-  repl <- valuetexts$data %>%
+  repl <- valuecodes$data %>%
     purrr::map(~ split(.x[[1]], .x[[2]])) %>%
     purrr::map(unlist) %>%
     rlang::set_names(names(tablist))
@@ -259,9 +259,8 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
     dplyr::bind_cols()
 
   # Merge recoded variables with values
-  value <- setdiff(colnames(data), valuetexts$text)
+  value <- setdiff(colnames(data), valuecodes$code)
   data %>%
     dplyr::select(value) %>%
-    dplyr::mutate_all(readr::parse_number) %>%
     dplyr::bind_cols(recoded_vars, .)
 }

@@ -11,9 +11,11 @@ tai_api(path)
 }
 \value{
 Returns API response object with three slots:
-- content parsed query result
-- path query path
-- response query response
+\itemize{
+\item content parsed query result
+\item path query path
+\item response query response
+}
 }
 \description{
 Interact with TAI API.

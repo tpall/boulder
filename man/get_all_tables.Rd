@@ -16,11 +16,11 @@ get_all_tables(local = TRUE, lang = c("et", "en"), verbose = FALSE)
 \value{
 A data_frame with following columns:
 \describe{
-  \item{Database}{Database name as available at TAI.}
-  \item{Node}{Database node name.}
-  \item{Name}{Variable name. This name should be used to download variable values.}
-  \item{Title}{Description of the variable.}
-  \item{Updated}{Time of the last update.}
+\item{Database}{Database name as available at TAI.}
+\item{Node}{Database node name.}
+\item{Name}{Variable name. This name should be used to download variable values.}
+\item{Title}{Description of the variable.}
+\item{Updated}{Time of the last update.}
 }
 }
 \description{
