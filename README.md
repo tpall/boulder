@@ -16,7 +16,7 @@ Install package from GitHub:
 devtools::install_github("tpall/boulder")
 ```
 
-Parse data from __json__ file manually downloaded from [Estonian Health Statistics Database](http://pxweb.tai.ee/PXWeb2015/index_en.html) into a data.frame.
+Parse data from __json__ file manually downloaded from [Estonian Health Statistics Database](http://pxweb.tai.ee/PXWeb2015/index_en.html) into a data frame.
 
 ``` r
 library(boulder)
