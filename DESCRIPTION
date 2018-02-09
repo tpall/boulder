@@ -3,7 +3,7 @@ Type: Package
 Title: Download Data From Estonian Health Statistics And Health Research Database
 Authors@R: person("Taavi", "Päll", email = "taavi.pall@credibleinterval.ee",
                   role = c("aut", "cre"))
-Version: 0.1.0
+Version: 0.2.0
 Depends: R (>= 2.10)
 Imports:
     dplyr,
@@ -26,3 +26,6 @@ LazyData: true
 RoxygenNote: 6.0.1
 Suggests: testthat,
     covr
+URL: https://tpall.github.io/boulder/, https://github.com/tpall/boulder
+BugReports: https://github.com/tpall/boulder/issues
+Roxygen: list(markdown = TRUE)
