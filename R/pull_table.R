@@ -182,7 +182,9 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
 
   # Download and process metadata
   md <- dplyr::filter(tablist, Name == tabname) %>%
-    dplyr::mutate(resp = purrr::pmap(list(Database, Node, Name), get_tables, lang = lang),
+    dplyr::mutate(resp = purrr::pmap(list(Database, Node, Name),
+                                     get_tables,
+                                     lang = lang),
                   metadata = purrr::map(resp, ~ .x$content$variables))
 
   md_unnested <- md %>% tidyr::unnest(metadata)
@@ -195,7 +197,7 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
     tidyr::nest() %>%
     dplyr::mutate(data = purrr::map2(data, text, ~ {colnames(.x)[1] <- .y; .x}))
 
-  # Filter out summary stats with values == 0
+  # Filter out summary stats with values > 0
   metadata <- md_unnested %>%
     eliminate() %>%
     tidyr::unnest() %>%
@@ -224,7 +226,6 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
   # Run query
   resp <- httr::POST(url = url,
                      body = json,
-                     httr::user_agent("Mozilla/5.0"),
                      httr::content_type_json())
 
   # Stop if query not successful
@@ -235,7 +236,7 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
   data <- jsonresponse$data
   data <- dplyr::as_data_frame(data) %>%
     tidyr::unnest(values) %>%
-    dplyr::mutate_at("values", readr::parse_number)
+    dplyr::mutate_at("values", readr::parse_number, na = c(".", "..", "", "NA"))
   data <- do.call(rbind, data$key) %>%
     dplyr::as_data_frame() %>%
     dplyr::bind_cols(dplyr::data_frame(data$values))
