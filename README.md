@@ -2,7 +2,7 @@
 [![Coverage Status](https://img.shields.io/codecov/c/github/tpall/boulder/master.svg)](https://codecov.io/github/tpall/boulder?branch=master)
 
 ## boulder
-boulder is designed for quering and downloading data from [Estonian Health Statistics And Health Research Database](http://pxweb.tai.ee/PXWeb2015/index_en.html) (TAI). 
+boulder is designed for querying and downloading data from [Estonian Health Statistics And Health Research Database](http://pxweb.tai.ee/PXWeb2015/index_en.html) (TAI). 
 Name 'Boulder' is from Brand Estonia toolbox [boulders](https://brand.estonia.ee/design/boulders/).
 
 > bouldeR: In our nature, the giant erratic boulders appear unexpectedly in the forest or on the beach. In our visual communication, they play a similar disruptive role. The use of boulders is not compulsory. [Brand Estonia](https://brand.estonia.ee/design/boulders/)
@@ -23,7 +23,7 @@ Otherwise, variables and their names are not modified, as prepended dots ".", ".
 It's strongly advisable to compare downloaded table to the table available on the TAI website.
 
 Package interacts with pxweb API at TAI. 
-There is also official pxweb API package [rOpenGov/pxweb](https://github.com/rOpenGov/pxweb) allowing interactive browsing trough databases.
+There is also official pxweb API package [rOpenGov/pxweb](https://github.com/rOpenGov/pxweb) allowing interactive browsing through databases.
 
 
 ## Installation
