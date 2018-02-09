@@ -51,12 +51,26 @@
   <div class="contents col-md-9">
     
 
-<div id="boulder" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#boulder" class="anchor"></a>boulder</h1></div>
+<div id="boulder" class="section level2">
+<h2 class="hasAnchor">
+<a href="#boulder" class="anchor"></a>boulder</h2>
+<p>boulder is designed for quering and downloading data from Estonian Health Statistics And Health Research Database (TAI). Name ‘Boulder’ is from Brand Estonia toolbox <a href="https://brand.estonia.ee/design/boulders/">boulders</a>.</p>
 <blockquote>
 <p>bouldeR: In our nature, the giant erratic boulders appear unexpectedly in the forest or on the beach. In our visual communication, they play a similar disruptive role. The use of boulders is not compulsory. <a href="https://brand.estonia.ee/design/boulders/">Brand Estonia</a></p>
 </blockquote>
+<p>Package has two main functions <code><a href="reference/get_all_tables.html">get_all_tables()</a></code> and <code><a href="reference/pull_table.html">pull_table()</a></code>.</p>
+<ul>
+<li>
+<code><a href="reference/get_all_tables.html">get_all_tables()</a></code> downloads list of available database tables and</li>
+<li>
+<code><a href="reference/pull_table.html">pull_table()</a></code> downloads your table of interest based on table name.</li>
+</ul>
+<p>Table descriptions are available in ‘Title’ column of data frame produced by <code><a href="reference/get_all_tables.html">get_all_tables()</a></code>. By default <code><a href="reference/get_all_tables.html">get_all_tables()</a></code> uses local table supplied with the package. To download fresh list of database tables from TAI use <code>local = FALSE</code> argument.</p>
+<p>Package interacts with pxweb API at TAI. There is also official pxweb API package <a href="https://github.com/rOpenGov/pxweb">rOpenGov/pxweb</a> allowing interactive browsing trough databases.</p>
+</div>
+<div id="example" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example" class="anchor"></a>Example</h2>
 <p>Install package from GitHub:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"tpall/boulder"</span>)</code></pre></div>
 <p>Parse data from <strong>json</strong> file manually downloaded from <a href="http://pxweb.tai.ee/PXWeb2015/index_en.html">Estonian Health Statistics Database</a> into a data.frame.</p>
