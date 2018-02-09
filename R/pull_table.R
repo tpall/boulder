@@ -129,9 +129,18 @@ get_all_tables <- function(local = TRUE, lang = c("et", "en"), verbose = FALSE){
 #' Recode downloaded variables
 #' @param vector_to_modify A vector to modify.
 #' @param replacements Replacements.
+#' @param lang Language, a character string. "et" -- Estonian, "en" -- English.
 #' @importFrom glue glue
-recode_vars <- function(vector_to_modify, replacements) {
-  rs <- glue::glue("'{replacements}' = '{names(replacements)}'")
+recode_vars <- function(vector_to_modify, replacements, lang) {
+
+  names_of_replacements <- names(replacements)
+
+  # If not estonian remove apostrophes
+  if (lang != "et") {
+    names_of_replacements <- stringr::str_replace(names_of_replacements, "'", "")
+  }
+
+  rs <- glue::glue("'{replacements}' = '{names_of_replacements}'")
   rs <- stringr::str_c(rs, collapse = ",")
   expr <- glue::glue("dplyr::recode(vector_to_modify, {rs})")
   eval(parse(text = expr))
@@ -250,7 +259,9 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
     purrr::map(unlist)
 
   recoded_vars <- dplyr::data_frame(keyslist, repl) %>%
-    dplyr::mutate(recoded = purrr::map2(keyslist, repl, recode_vars)) %>%
+    dplyr::mutate(recoded = purrr::map2(keyslist, repl,
+                                        recode_vars,
+                                        lang = lang)) %>%
     dplyr::pull(recoded) %>%
     dplyr::bind_cols()
 
@@ -258,5 +269,9 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
   colnames(recoded_vars) <- valuecodes$text
 
   # Merge recoded variables with values
-  dplyr::bind_cols(recoded_vars, value)
+  out <- dplyr::bind_cols(recoded_vars, value)
+
+  # Add table metadata to comments field
+  comment(out) <- c(Title = md$Title, Updated = md$Updated)
+  return(out)
 }

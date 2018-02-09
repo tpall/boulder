@@ -4,12 +4,14 @@
 \alias{recode_vars}
 \title{Recode downloaded variables}
 \usage{
-recode_vars(vector_to_modify, replacements)
+recode_vars(vector_to_modify, replacements, lang)
 }
 \arguments{
 \item{vector_to_modify}{A vector to modify.}
 
 \item{replacements}{Replacements.}
+
+\item{lang}{Language, a character string. "et" -- Estonian, "en" -- English.}
 }
 \description{
 Recode downloaded variables

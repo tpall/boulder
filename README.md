@@ -68,7 +68,7 @@ rk01 <- pull_table("RK01", lang = "en")
 #> Warning: JSON string contains (illegal) UTF8 byte-order-mark!
 rk01
 #> # A tibble: 3,876 x 4
-#>     Year  County    `Age group` Abortions
+#>     Year  County    `Age group`     value
 #>    <chr>   <chr>          <chr>     <dbl>
 #>  1  2000 Estonia All age groups     15331
 #>  2  2000 Estonia          10-14        20
@@ -81,4 +81,8 @@ rk01
 #>  9  2000 Estonia          40-44       996
 #> 10  2000 Estonia          45-49       110
 #> # ... with 3,866 more rows
+
+comment(rk01)
+#>                              Title                             Updated 
+#>"Abortions by age group and county"               "2017-06-06T10:16:55" 
 ```
