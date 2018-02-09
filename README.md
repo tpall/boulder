@@ -2,12 +2,12 @@
 [![Coverage Status](https://img.shields.io/codecov/c/github/tpall/boulder/master.svg)](https://codecov.io/github/tpall/boulder?branch=master)
 
 ## boulder
-
 boulder is designed for quering and downloading data from Estonian Health Statistics And Health Research Database (TAI). 
 Name 'Boulder' is from Brand Estonia toolbox [boulders](https://brand.estonia.ee/design/boulders/).
 
 > bouldeR: In our nature, the giant erratic boulders appear unexpectedly in the forest or on the beach. In our visual communication, they play a similar disruptive role. The use of boulders is not compulsory. [Brand Estonia](https://brand.estonia.ee/design/boulders/)
 
+## Verbs
 Package has two main functions `get_all_tables()` and `pull_table()`.
 
 - `get_all_tables()` downloads list of available database tables and 
@@ -18,12 +18,15 @@ By default `get_all_tables()` uses local table supplied with the package.
 To download fresh list of database tables from TAI use `local = FALSE` argument.
 
 
+`pull_table()` converts "." and "..", apparently denoting missing values, to NA-s, and filters out some summary rows, generally coded by "0"-s, to reduce table size in attempt to avoid hitting size limit of POST request.
+Otherwise, variables and their names are not modified, as prepended dots ".", ".." to the variable names indicate their hierarchy.
+It's strongly advisable to compare downloaded table to the table available on the TAI website.
+
 Package interacts with pxweb API at TAI. 
 There is also official pxweb API package [rOpenGov/pxweb](https://github.com/rOpenGov/pxweb) allowing interactive browsing trough databases.
 
 
 ## Example
-
 Install package from GitHub:
 ``` r
 devtools::install_github("tpall/boulder")

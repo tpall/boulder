@@ -58,6 +58,10 @@
 <blockquote>
 <p>bouldeR: In our nature, the giant erratic boulders appear unexpectedly in the forest or on the beach. In our visual communication, they play a similar disruptive role. The use of boulders is not compulsory. <a href="https://brand.estonia.ee/design/boulders/">Brand Estonia</a></p>
 </blockquote>
+</div>
+<div id="verbs" class="section level2">
+<h2 class="hasAnchor">
+<a href="#verbs" class="anchor"></a>Verbs</h2>
 <p>Package has two main functions <code><a href="reference/get_all_tables.html">get_all_tables()</a></code> and <code><a href="reference/pull_table.html">pull_table()</a></code>.</p>
 <ul>
 <li>
@@ -66,6 +70,7 @@
 <code><a href="reference/pull_table.html">pull_table()</a></code> downloads your table of interest based on table name.</li>
 </ul>
 <p>Table descriptions are available in ‘Title’ column of data frame produced by <code><a href="reference/get_all_tables.html">get_all_tables()</a></code>. By default <code><a href="reference/get_all_tables.html">get_all_tables()</a></code> uses local table supplied with the package. To download fresh list of database tables from TAI use <code>local = FALSE</code> argument.</p>
+<p><code><a href="reference/pull_table.html">pull_table()</a></code> converts “.” and “..”, apparently denoting missing values, to NA-s, and filters out some summary rows, generally coded by “0”-s, to reduce table size in attempt to avoid hitting size limit of POST request. Otherwise, variables and their names are not modified, as prepended dots “.”, “..” to the variable names indicate their hierarchy. It’s strongly advisable to compare downloaded table to the table available on the TAI website.</p>
 <p>Package interacts with pxweb API at TAI. There is also official pxweb API package <a href="https://github.com/rOpenGov/pxweb">rOpenGov/pxweb</a> allowing interactive browsing trough databases.</p>
 </div>
 <div id="example" class="section level2">
