@@ -195,9 +195,9 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
 
   # Variables legend
   valuecodes <- md_unnested %>%
-    dplyr::select(code, values, valueTexts) %>%
+    dplyr::select(code, text, values, valueTexts) %>%
     tidyr::unnest() %>%
-    dplyr::group_by(code) %>%
+    dplyr::group_by(code, text) %>%
     tidyr::nest() %>%
     dplyr::mutate(data = purrr::map2(data, code, ~ {colnames(.x)[1] <- .y; .x}))
 
@@ -236,35 +236,27 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
   httr::stop_for_status(resp, task = "download table.")
 
   jsonresponse <- httr::content(resp, "text") %>% jsonlite::fromJSON()
-  columns <- jsonresponse$columns
   data <- jsonresponse$data
-  data <- dplyr::as_data_frame(data) %>%
+  value <- dplyr::as_data_frame(data) %>%
     tidyr::unnest(values) %>%
-    dplyr::mutate_at("values", readr::parse_number, na = c(".", "..", "", "NA"))
-  data <- do.call(rbind, data$key) %>%
-    dplyr::as_data_frame() %>%
-    dplyr::bind_cols(dplyr::data_frame(data$values))
-  colnames(data) <- columns$code
-
-  # Recode variables
-  toberecoded <- intersect(colnames(data), valuecodes$code)
-  tablist <- data %>%
-    dplyr::select(toberecoded) %>%
-    rlang::as_list(.)
+    dplyr::mutate_at("values", readr::parse_number, na = c(".", "..", "", "NA")) %>%
+    dplyr::select(value = values)
+  keys <- do.call(rbind, data$key) %>%
+    dplyr::as_data_frame()
+  keyslist <- keys %>% rlang::as_list(.)
 
   repl <- valuecodes$data %>%
     purrr::map(~ split(.x[[1]], .x[[2]])) %>%
-    purrr::map(unlist) %>%
-    rlang::set_names(names(tablist))
+    purrr::map(unlist)
 
-  recoded_vars <- dplyr::data_frame(tablist, repl) %>%
-    dplyr::mutate(recoded = purrr::map2(tablist, repl, recode_vars)) %>%
+  recoded_vars <- dplyr::data_frame(keyslist, repl) %>%
+    dplyr::mutate(recoded = purrr::map2(keyslist, repl, recode_vars)) %>%
     dplyr::pull(recoded) %>%
     dplyr::bind_cols()
 
+  # Name variables according to chosen language
+  colnames(recoded_vars) <- valuecodes$text
+
   # Merge recoded variables with values
-  value <- setdiff(colnames(data), valuecodes$code)
-  data %>%
-    dplyr::select(value) %>%
-    dplyr::bind_cols(recoded_vars, .)
+  dplyr::bind_cols(recoded_vars, value)
 }
