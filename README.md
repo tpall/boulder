@@ -37,7 +37,6 @@ Parse data from __json__ file manually downloaded from [Estonian Health Statisti
 
 ``` r
 library(boulder)
-
 path_to_PK10.json <- system.file("extdata", "PK10.json", package = "boulder", mustWork = TRUE)
 pk10 <- json_to_df(path_to_PK10.json)
 #> Data source is Estonian Cancer Registry.
@@ -45,44 +44,47 @@ pk10 <- json_to_df(path_to_PK10.json)
 
 Download table "RK01" from database:
 ``` r
+# load library
 library(boulder)
+# check available tables
 tabs <- get_all_tables(lang = "en")
 tabs
 #> # A tibble: 1,685 x 5
-#>       Database      Node  Name
-#>          <chr>     <chr> <chr>
-#>  1 01Rahvastik 03Abordid  RK01
-#>  2 01Rahvastik 03Abordid  RK11
-#>  3 01Rahvastik 03Abordid  RK20
-#>  4 01Rahvastik 03Abordid  RK30
-#>  5 01Rahvastik 03Abordid  RK40
-#>  6 01Rahvastik 03Abordid  RK50
-#>  7 01Rahvastik 03Abordid  RK61
-#>  8 01Rahvastik 03Abordid  RK62
-#>  9 01Rahvastik 03Abordid  RK63
-#> 10 01Rahvastik  05Eluiga  OE12
-#> # ... with 1,675 more rows, and 2 more variables: Title <chr>,
-#> #   Updated <chr>
-
+#>    Database    Node      Name  Title                            Updated   
+#>    <chr>       <chr>     <chr> <chr>                            <chr>     
+#>  1 01Rahvastik 03Abordid RK01  Abortions by age group and coun… 2017-06-0…
+#>  2 01Rahvastik 03Abordid RK11  Abortions by abortion type and … 2017-11-0…
+#>  3 01Rahvastik 03Abordid RK20  Abortion rates by abortion type… 2017-06-0…
+#>  4 01Rahvastik 03Abordid RK30  Abortion method by county        2017-06-0…
+#>  5 01Rahvastik 03Abordid RK40  Abortion type by gestational ag… 2017-06-0…
+#>  6 01Rahvastik 03Abordid RK50  Use of contraceptives in case o… 2017-06-0…
+#>  7 01Rahvastik 03Abordid RK61  Legally induced abortions by wo… 2017-06-0…
+#>  8 01Rahvastik 03Abordid RK62  Abortions by the number of woma… 2017-06-0…
+#>  9 01Rahvastik 03Abordid RK63  Abortions by the number of woma… 2017-06-0…
+#> 10 01Rahvastik 05Eluiga  OE12  Life expectancy at birth by sex  2017-09-1…
+#> # ... with 1,675 more rows
+# dowload table of interest
 rk01 <- pull_table("RK01", lang = "en")
-#> Warning: JSON string contains (illegal) UTF8 byte-order-mark!
 rk01
 #> # A tibble: 3,876 x 4
-#>     Year  County    `Age group`     value
-#>    <chr>   <chr>          <chr>     <dbl>
-#>  1  2000 Estonia All age groups     15331
-#>  2  2000 Estonia          10-14        20
-#>  3  2000 Estonia          15-17       689
-#>  4  2000 Estonia          18-19      1168
-#>  5  2000 Estonia          20-24      3701
-#>  6  2000 Estonia          25-29      3545
-#>  7  2000 Estonia          30-34      2940
-#>  8  2000 Estonia          35-39      2158
-#>  9  2000 Estonia          40-44       996
-#> 10  2000 Estonia          45-49       110
+#>    Year  County  `Age group`      value
+#>    <chr> <chr>   <chr>            <dbl>
+#>  1 2000  Estonia All age groups 15331  
+#>  2 2000  Estonia 10-14             20.0
+#>  3 2000  Estonia 15-17            689  
+#>  4 2000  Estonia 18-19           1168  
+#>  5 2000  Estonia 20-24           3701  
+#>  6 2000  Estonia 25-29           3545  
+#>  7 2000  Estonia 30-34           2940  
+#>  8 2000  Estonia 35-39           2158  
+#>  9 2000  Estonia 40-44            996  
+#> 10 2000  Estonia 45-49            110  
 #> # ... with 3,866 more rows
-
+# look at the table title and date of last update
 comment(rk01)
-#>                              Title                             Updated 
-#>"Abortions by age group and county"               "2017-06-06T10:16:55" 
+#>                               Title                             Updated 
+#> "Abortions by age group and county"               "2017-06-06T10:16:55"
 ```
+
+Created on 2018-02-10 by the [reprex package](http://reprex.tidyverse.org) (v0.2.0).
+

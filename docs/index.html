@@ -91,51 +91,51 @@
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Parse data from <strong>json</strong> file manually downloaded from <a href="http://pxweb.tai.ee/PXWeb2015/index_en.html">Estonian Health Statistics Database</a> into a data frame.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(boulder)
-
 path_to_PK10.json &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"PK10.json"</span>, <span class="dt">package =</span> <span class="st">"boulder"</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)
 pk10 &lt;-<span class="st"> </span><span class="kw"><a href="reference/json_to_df.html">json_to_df</a></span>(path_to_PK10.json)
 <span class="co">#&gt; Data source is Estonian Cancer Registry.</span></code></pre></div>
 <p>Download table “RK01” from database:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(boulder)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load library</span>
+<span class="kw">library</span>(boulder)
+<span class="co"># check available tables</span>
 tabs &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_all_tables.html">get_all_tables</a></span>(<span class="dt">lang =</span> <span class="st">"en"</span>)
 tabs
 <span class="co">#&gt; # A tibble: 1,685 x 5</span>
-<span class="co">#&gt;       Database      Node  Name</span>
-<span class="co">#&gt;          &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;</span>
-<span class="co">#&gt;  1 01Rahvastik 03Abordid  RK01</span>
-<span class="co">#&gt;  2 01Rahvastik 03Abordid  RK11</span>
-<span class="co">#&gt;  3 01Rahvastik 03Abordid  RK20</span>
-<span class="co">#&gt;  4 01Rahvastik 03Abordid  RK30</span>
-<span class="co">#&gt;  5 01Rahvastik 03Abordid  RK40</span>
-<span class="co">#&gt;  6 01Rahvastik 03Abordid  RK50</span>
-<span class="co">#&gt;  7 01Rahvastik 03Abordid  RK61</span>
-<span class="co">#&gt;  8 01Rahvastik 03Abordid  RK62</span>
-<span class="co">#&gt;  9 01Rahvastik 03Abordid  RK63</span>
-<span class="co">#&gt; 10 01Rahvastik  05Eluiga  OE12</span>
-<span class="co">#&gt; # ... with 1,675 more rows, and 2 more variables: Title &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Updated &lt;chr&gt;</span>
-
+<span class="co">#&gt;    Database    Node      Name  Title                            Updated   </span>
+<span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;                            &lt;chr&gt;     </span>
+<span class="co">#&gt;  1 01Rahvastik 03Abordid RK01  Abortions by age group and coun… 2017-06-0…</span>
+<span class="co">#&gt;  2 01Rahvastik 03Abordid RK11  Abortions by abortion type and … 2017-11-0…</span>
+<span class="co">#&gt;  3 01Rahvastik 03Abordid RK20  Abortion rates by abortion type… 2017-06-0…</span>
+<span class="co">#&gt;  4 01Rahvastik 03Abordid RK30  Abortion method by county        2017-06-0…</span>
+<span class="co">#&gt;  5 01Rahvastik 03Abordid RK40  Abortion type by gestational ag… 2017-06-0…</span>
+<span class="co">#&gt;  6 01Rahvastik 03Abordid RK50  Use of contraceptives in case o… 2017-06-0…</span>
+<span class="co">#&gt;  7 01Rahvastik 03Abordid RK61  Legally induced abortions by wo… 2017-06-0…</span>
+<span class="co">#&gt;  8 01Rahvastik 03Abordid RK62  Abortions by the number of woma… 2017-06-0…</span>
+<span class="co">#&gt;  9 01Rahvastik 03Abordid RK63  Abortions by the number of woma… 2017-06-0…</span>
+<span class="co">#&gt; 10 01Rahvastik 05Eluiga  OE12  Life expectancy at birth by sex  2017-09-1…</span>
+<span class="co">#&gt; # ... with 1,675 more rows</span>
+<span class="co"># dowload table of interest</span>
 rk01 &lt;-<span class="st"> </span><span class="kw"><a href="reference/pull_table.html">pull_table</a></span>(<span class="st">"RK01"</span>, <span class="dt">lang =</span> <span class="st">"en"</span>)
-<span class="co">#&gt; Warning: JSON string contains (illegal) UTF8 byte-order-mark!</span>
 rk01
 <span class="co">#&gt; # A tibble: 3,876 x 4</span>
-<span class="co">#&gt;     Year  County    `Age group`     value</span>
-<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;          &lt;chr&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  2000 Estonia All age groups     15331</span>
-<span class="co">#&gt;  2  2000 Estonia          10-14        20</span>
-<span class="co">#&gt;  3  2000 Estonia          15-17       689</span>
-<span class="co">#&gt;  4  2000 Estonia          18-19      1168</span>
-<span class="co">#&gt;  5  2000 Estonia          20-24      3701</span>
-<span class="co">#&gt;  6  2000 Estonia          25-29      3545</span>
-<span class="co">#&gt;  7  2000 Estonia          30-34      2940</span>
-<span class="co">#&gt;  8  2000 Estonia          35-39      2158</span>
-<span class="co">#&gt;  9  2000 Estonia          40-44       996</span>
-<span class="co">#&gt; 10  2000 Estonia          45-49       110</span>
+<span class="co">#&gt;    Year  County  `Age group`      value</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;            &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 2000  Estonia All age groups 15331  </span>
+<span class="co">#&gt;  2 2000  Estonia 10-14             20.0</span>
+<span class="co">#&gt;  3 2000  Estonia 15-17            689  </span>
+<span class="co">#&gt;  4 2000  Estonia 18-19           1168  </span>
+<span class="co">#&gt;  5 2000  Estonia 20-24           3701  </span>
+<span class="co">#&gt;  6 2000  Estonia 25-29           3545  </span>
+<span class="co">#&gt;  7 2000  Estonia 30-34           2940  </span>
+<span class="co">#&gt;  8 2000  Estonia 35-39           2158  </span>
+<span class="co">#&gt;  9 2000  Estonia 40-44            996  </span>
+<span class="co">#&gt; 10 2000  Estonia 45-49            110  </span>
 <span class="co">#&gt; # ... with 3,866 more rows</span>
-
+<span class="co"># look at the table title and date of last update</span>
 <span class="kw">comment</span>(rk01)
-<span class="co">#&gt;                              Title                             Updated </span>
-<span class="co">#&gt;"Abortions by age group and county"               "2017-06-06T10:16:55" </span></code></pre></div>
+<span class="co">#&gt;                               Title                             Updated </span>
+<span class="co">#&gt; "Abortions by age group and county"               "2017-06-06T10:16:55"</span></code></pre></div>
+<p>Created on 2018-02-10 by the <a href="http://reprex.tidyverse.org">reprex package</a> (v0.2.0).</p>
 </div>
 
   </div>

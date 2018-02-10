@@ -244,7 +244,15 @@ pull_table <- function(tabname, tablist = NULL, lang = c("et", "en")) {
   # Stop if query not successful
   httr::stop_for_status(resp, task = "download table.")
 
-  jsonresponse <- httr::content(resp, "text") %>% jsonlite::fromJSON()
+  rawcontent <- httr::content(resp, "raw")
+
+  if (all(rawcontent[c(1:3)] %in% c("ef", "bb", "bf"))) {
+    rawcontent <- rawcontent[-c(1:3)]
+  }
+
+  jsonresponse <- rawcontent %>%
+    rawToChar() %>%
+    jsonlite::fromJSON()
   data <- jsonresponse$data
   value <- dplyr::as_data_frame(data) %>%
     tidyr::unnest(values) %>%
