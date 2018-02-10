@@ -60,6 +60,18 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/colo.html">Colorectal cancer incidence and mortality</a>
+    </li>
+  </ul>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -123,21 +135,10 @@ Extracts ICD10 string and expands range when range of codes is shown.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="get_databases.html">get_databases</a></code> </p>
+            <p><code><a href="get_json.html">get_json</a></code> </p>
           </td>
-          <td><p>List of available databases at TAI, wrapper around tai_api</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="get_nodes.html">get_nodes</a></code> </p>
-          </td>
-          <td><p>Get database nodes</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="get_tables.html">get_tables</a></code> </p>
-          </td>
-          <td><p>Get database node ids or table metadata</p></td>
+          <td><p>Extract json as data frame from request content
+Checks if request object type is <code>application/json</code>, retrieves contents and converts from json to data frame.</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -160,27 +161,15 @@ Extract data from json file downloaded from Estonian Health Statistics and Healt
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="map_get_tables.html">map_get_tables</a></code> </p>
-          </td>
-          <td><p>Map get_tables function</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="print.tai_api.html">print</a></code> </p>
-          </td>
-          <td><p>Print TAI API object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
             <p><code><a href="pull_table.html">pull_table</a></code> </p>
           </td>
           <td><p>Download data table from TAI</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="query_fun.html">query_fun</a></code> </p>
+            <p><code><a href="query_api.html">query_api</a></code> </p>
           </td>
-          <td><p>Run api query</p></td>
+          <td><p>Run query using GET</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -190,21 +179,9 @@ Extract data from json file downloaded from Estonian Health Statistics and Healt
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="tai_api.html">tai_api</a></code> </p>
+            <p><code><a href="traverse_nodes.html">traverse_nodes</a></code> </p>
           </td>
-          <td><p>Interact with TAI API.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="unescape_html.html">unescape_html</a></code> </p>
-          </td>
-          <td><p>Fix html character encoding</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="unwrap_content.html">unwrap_content</a></code> </p>
-          </td>
-          <td><p>Extract table from downloaded content.</p></td>
+          <td><p>Run query on database nodes</p></td>
         </tr>
       </tbody>
       </table>

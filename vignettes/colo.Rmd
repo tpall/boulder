@@ -1,0 +1,56 @@
+---
+title: "Colorectal cancer incidence and mortality"
+author: "Taavi Päll"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+        fig_caption: yes
+vignette: >
+  %\VignetteIndexEntry{Colorectal cancer incidence and mortality}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  message = FALSE
+)
+```
+
+## Download list of available datasets
+By default, datasets table is loaded from a local copy supplied with the package (`local = TRUE`).
+Set argument `local = FALSE` to download fresh list of tables from TAI.
+Table columns **Database** and **Node** describe table address in the database tree.
+Whereas, database and node names are available only in Estonian.
+**Name** column contains table names and should be used when downloading data.
+**Title** columns contains table descriptions and in many cases also what are the values presented in the table (e.g. age-normalised incidence per 100'000).
+
+
+```{r}
+library(dplyr)
+library(stringr)
+library(boulder)
+tabs <- get_all_tables(lang = "en")
+tabs
+```
+
+Find tables with cancer incidence and mortality data. 
+Table info is stored in **Title** column.
+For better matching we convert Title column to lower case.
+Cancer morbidity is stored under 
+
+```{r}
+tabs %>% 
+  mutate(descr = str_to_lower(Title)) %>% 
+  filter(str_detect(descr, "neoplasm")) %>% 
+  select(Name, Title, Node, Updated) %>% 
+  knitr::kable()
+```
+
+We are interested in table **PK30**
+```{r}
+
+```
+

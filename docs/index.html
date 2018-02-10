@@ -37,6 +37,18 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/colo.html">Colorectal cancer incidence and mortality</a>
+    </li>
+  </ul>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -106,20 +118,20 @@ pk10 &lt;-<span class="st"> </span><span class="kw"><a href="reference/json_to_d
 <span class="co"># check available tables</span>
 tabs &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_all_tables.html">get_all_tables</a></span>(<span class="dt">lang =</span> <span class="st">"en"</span>)
 tabs
-<span class="co">#&gt; # A tibble: 1,685 x 5</span>
-<span class="co">#&gt;    Database    Node      Name  Title                            Updated   </span>
-<span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;                            &lt;chr&gt;     </span>
-<span class="co">#&gt;  1 01Rahvastik 03Abordid RK01  Abortions by age group and coun… 2017-06-0…</span>
-<span class="co">#&gt;  2 01Rahvastik 03Abordid RK11  Abortions by abortion type and … 2017-11-0…</span>
-<span class="co">#&gt;  3 01Rahvastik 03Abordid RK20  Abortion rates by abortion type… 2017-06-0…</span>
-<span class="co">#&gt;  4 01Rahvastik 03Abordid RK30  Abortion method by county        2017-06-0…</span>
-<span class="co">#&gt;  5 01Rahvastik 03Abordid RK40  Abortion type by gestational ag… 2017-06-0…</span>
-<span class="co">#&gt;  6 01Rahvastik 03Abordid RK50  Use of contraceptives in case o… 2017-06-0…</span>
-<span class="co">#&gt;  7 01Rahvastik 03Abordid RK61  Legally induced abortions by wo… 2017-06-0…</span>
-<span class="co">#&gt;  8 01Rahvastik 03Abordid RK62  Abortions by the number of woma… 2017-06-0…</span>
-<span class="co">#&gt;  9 01Rahvastik 03Abordid RK63  Abortions by the number of woma… 2017-06-0…</span>
-<span class="co">#&gt; 10 01Rahvastik 05Eluiga  OE12  Life expectancy at birth by sex  2017-09-1…</span>
-<span class="co">#&gt; # ... with 1,675 more rows</span>
+<span class="co">#&gt; # A tibble: 1,688 x 6</span>
+<span class="co">#&gt;    Database    Node                         Name  Title    Updated  url   </span>
+<span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;                        &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; </span>
+<span class="co">#&gt;  1 01Rahvastik Abortions                    RK01  Abortio… 2017-06… http:…</span>
+<span class="co">#&gt;  2 01Rahvastik Abortions                    RK11  Abortio… 2017-11… http:…</span>
+<span class="co">#&gt;  3 01Rahvastik Abortions                    RK20  Abortio… 2017-06… http:…</span>
+<span class="co">#&gt;  4 01Rahvastik Abortions                    RK30  Abortio… 2017-06… http:…</span>
+<span class="co">#&gt;  5 01Rahvastik Abortions                    RK40  Abortio… 2017-06… http:…</span>
+<span class="co">#&gt;  6 01Rahvastik Abortions                    RK50  Use of … 2017-06… http:…</span>
+<span class="co">#&gt;  7 01Rahvastik Abortions                    RK61  Legally… 2017-06… http:…</span>
+<span class="co">#&gt;  8 01Rahvastik Abortions                    RK62  Abortio… 2017-06… http:…</span>
+<span class="co">#&gt;  9 01Rahvastik Abortions                    RK63  Abortio… 2017-06… http:…</span>
+<span class="co">#&gt; 10 01Rahvastik Births and breastfed infants SR01  Live bi… 2017-10… http:…</span>
+<span class="co">#&gt; # ... with 1,678 more rows</span>
 
 <span class="co"># dowload table of interest</span>
 rk01 &lt;-<span class="st"> </span><span class="kw"><a href="reference/pull_table.html">pull_table</a></span>(<span class="st">"RK01"</span>, <span class="dt">lang =</span> <span class="st">"en"</span>)

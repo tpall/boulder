@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Recode downloaded variables — recode_vars • boulder</title>
+<title>Extract json as data frame from request content
+Checks if request object type is <code>application/json</code>, retrieves contents and converts from json to data frame. — get_json • boulder</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -92,31 +93,29 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Recode downloaded variables</h1>
+    <h1>Extract json as data frame from request content
+Checks if request object type is <code>application/json</code>, retrieves contents and converts from json to data frame.</h1>
     </div>
 
     
-    <p>Recode downloaded variables</p>
+    <p>Extract json as data frame from request content
+Checks if request object type is <code>application/json</code>, retrieves contents and converts from json to data frame.</p>
     
 
-    <pre class="usage"><span class='fu'>recode_vars</span>(<span class='no'>vector_to_modify</span>, <span class='no'>replacements</span>, <span class='no'>lang</span>)</pre>
+    <pre class="usage"><span class='fu'>get_json</span>(<span class='no'>resp</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>vector_to_modify</th>
-      <td><p>A vector to modify.</p></td>
-    </tr>
-    <tr>
-      <th>replacements</th>
-      <td><p>Replacements.</p></td>
-    </tr>
-    <tr>
-      <th>lang</th>
-      <td><p>Language, a character string. "et" -- Estonian, "en" -- English.</p></td>
+      <th>resp</th>
+      <td><p>request object.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a data_frame</p>
     
 
   </div>
@@ -124,7 +123,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>

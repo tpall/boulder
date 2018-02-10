@@ -40,7 +40,6 @@ It's strongly advisable to compare downloaded table to the table available on th
 Package interacts with pxweb API at TAI. 
 There is also official pxweb API package [rOpenGov/pxweb](https://github.com/rOpenGov/pxweb) allowing interactive browsing through databases.
 
-
 ## Installation
 Install package from GitHub:
 ``` r

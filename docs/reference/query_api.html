@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Recode downloaded variables — recode_vars • boulder</title>
+<title>Run query using GET — query_api • boulder</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -92,29 +92,25 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Recode downloaded variables</h1>
+    <h1>Run query using GET</h1>
     </div>
 
     
-    <p>Recode downloaded variables</p>
+    <p>Wrapper around httr::GET</p>
     
 
-    <pre class="usage"><span class='fu'>recode_vars</span>(<span class='no'>vector_to_modify</span>, <span class='no'>replacements</span>, <span class='no'>lang</span>)</pre>
+    <pre class="usage"><span class='fu'>query_api</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>url</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>vector_to_modify</th>
-      <td><p>A vector to modify.</p></td>
+      <th>path</th>
+      <td><p>optional path appended to url, defaults to NULL.</p></td>
     </tr>
     <tr>
-      <th>replacements</th>
-      <td><p>Replacements.</p></td>
-    </tr>
-    <tr>
-      <th>lang</th>
-      <td><p>Language, a character string. "et" -- Estonian, "en" -- English.</p></td>
+      <th>url</th>
+      <td><p>the url of the page to retrieve.</p></td>
     </tr>
     </table>
     

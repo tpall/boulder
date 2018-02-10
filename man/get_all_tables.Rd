@@ -28,10 +28,10 @@ Lists databases, nodes and tables in Estonian National Institute for Health Deve
 }
 \examples{
 \dontrun{
-vars <- list_variables()
+tabs <- get_all_tables()
 
 # In RStudio, it is convenient to use View function
-View(vars)
+View(tabs)
 }
 
 }

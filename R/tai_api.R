@@ -1,119 +1,38 @@
 
-#' Fix html character encoding
-#' @param x a character vector
-#'
-unescape_html <- function(x) {
-  stringr::str_c("<x>", x, "</x>") %>%
-    purrr::map(~ xml2::read_html(.x)) %>%
-    purrr::map_chr(~ xml2::xml_text(.x))
-}
+#' Run query using GET
+#' @description Wrapper around httr::GET
+#' @param url the url of the page to retrieve.
+#' @param path optional path appended to url, defaults to NULL.
+#' @import httr
+query_api <- function(path = NULL, url) {
 
-#' Interact with TAI API.
-#'
-#' @param path API path relative to http://pxweb.tai.ee
-#'
-#' @return Returns API response object with three slots:
-#' - content parsed query result
-#' - path query path
-#' - response query response
-#'
-tai_api <- function(path) {
-  url <- httr::modify_url("http://pxweb.tai.ee", path = path)
+  if (!is.null(path)) {
+    url <- httr::parse_url(url)
+    url$path <- file.path(url$path, path)
+    url <- httr::build_url(url)
+  }
 
   resp <- httr::GET(url, httr::accept_json())
-  httr::stop_for_status(resp)
+  httr::stop_for_status(resp, task = "download")
+  return(resp)
+}
 
-  content <- httr::content(resp, "text")
-
+#' Extract json as data frame from request content
+#' Checks if request object type is `application/json`, retrieves contents and converts from json to data frame.
+#' @param resp request object.
+#' @return a data_frame
+#' @import httr
+#' @import jsonlite
+get_json <- function(resp) {
   if (httr::http_type(resp) != "application/json") {
-    stop("API did not return json", call. = FALSE)
+    stop("Input type is not json", call. = FALSE)
+  }
+  json <- httr::content(resp, "text")
+  df <- jsonlite::fromJSON(json, simplifyDataFrame = TRUE)
+
+  if (all(class(df) == "list")) {
+    df <- df$variables
   }
 
-  parsed <- jsonlite::fromJSON(content)
-
-  structure(
-    list(
-      content = parsed,
-      path = path,
-      response = resp
-    ),
-    class = "tai_api"
-  )
+  dplyr::as_data_frame(df)
 }
-
-#' Print TAI API object
-#' @param x object of class tai_api
-#' @importFrom utils "str"
-#'
-print.tai_api <- function(x) {
-  cat("<Tervise Arengu Instituut ", x$path, ">\n", sep = "")
-  str(x$content)
-  invisible(x)
-}
-
-#' List of available databases at TAI, wrapper around tai_api
-#' @return content a data.frame of database ids and title
-#' @return path the path used in API query
-#' @return response html response
-#'
-get_databases <- function() {
-  path <- "/PXWeb2015/api/v1/et"
-  tai_api(path)
-}
-
-#' Get database nodes
-#' @param dbi TAI database id
-#' @return a data.frame with id, type - types of node object l and t where l is s sublevel and t is a table, text - textual description
-#'
-get_nodes <- function(dbi) {
-
-  if (stringr::str_length(dbi) == 0) {
-    stop("Empty string provided as database name. To get nodes, please supply valid
-         database name as function argument. Use get_databases() to download
-         valid database names.")
-  }
-
-  path <- file.path("/PXWeb2015/api/v1/et", dbi)
-  tai_api(path)
-}
-
-#' Get database node ids or table metadata
-#' @param dbi TAI database id
-#' @param node node id
-#' @param table table id
-#' @param lang language. Default is Estonian 'et', 'en' English.
-#' @details Table metadata result has a title property and an array of variables.
-#' The variable object has four properties: code, text, elimination and time.
-#' The code and text properties are mandatory properties, while the elimination and time are optional.
-#' If time or elimination is not specified, the default value of “n” is used.
-#' The properties time and elimination could have either TRUE (yes) or FALSE (no) specified.
-#' If a variable has elimination set to “TRUE”, one can then omit selecting a value for that variable.
-#' There can only be one variable that has the time property set to “t” for a table.
-#' It also contains two lists.
-#' One that contains the codes for the all the values of which the variable can assume and one list of all the presentation text for the values.
-#' @references \url{http://www.scb.se/contentassets/79c32c72783a4f67b202ad3189f921b9/api-description.pdf}
-#' @return a data.frame with id, type - types of node object l and t where l is s sublevel and t is a table, text - textual description
-#'
-get_tables <- function(dbi, node, table = NULL, lang = c("et", "en")) {
-
-  if (any(stringr::str_length(c(node, table)) == 0)) {
-    stop("Empty string provided as node and/or table name. To get tables, please supply valid
-         node and/or table name as function argument.")
-  }
-
-  # Set language
-  lang <- match.arg(lang)
-  path <- file.path("/PXWeb2015/api/v1/", lang)
-
-  if (is.null(table)) {
-    path <- file.path(path, dbi, node)
-  } else {
-    if (!stringr::str_detect(table, "px$")) {
-      table <- stringr::str_c(table, "px", sep = ".")
-    }
-    path <- file.path(path, dbi, node, table)
-  }
-
-  tai_api(path)
-}
-
