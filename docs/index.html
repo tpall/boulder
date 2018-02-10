@@ -15,7 +15,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-home">
+    <div class="container template-vignette">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -55,8 +55,13 @@
 
       
       </header><div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9">
     
+
+    
+    
+<div class="contents">
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <div id="boulder" class="section level2">
 <h2 class="hasAnchor">
@@ -97,6 +102,7 @@ pk10 &lt;-<span class="st"> </span><span class="kw"><a href="reference/json_to_d
 <p>Download table “RK01” from database:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load library</span>
 <span class="kw">library</span>(boulder)
+
 <span class="co"># check available tables</span>
 tabs &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_all_tables.html">get_all_tables</a></span>(<span class="dt">lang =</span> <span class="st">"en"</span>)
 tabs
@@ -114,6 +120,7 @@ tabs
 <span class="co">#&gt;  9 01Rahvastik 03Abordid RK63  Abortions by the number of woma… 2017-06-0…</span>
 <span class="co">#&gt; 10 01Rahvastik 05Eluiga  OE12  Life expectancy at birth by sex  2017-09-1…</span>
 <span class="co">#&gt; # ... with 1,675 more rows</span>
+
 <span class="co"># dowload table of interest</span>
 rk01 &lt;-<span class="st"> </span><span class="kw"><a href="reference/pull_table.html">pull_table</a></span>(<span class="st">"RK01"</span>, <span class="dt">lang =</span> <span class="st">"en"</span>)
 rk01
@@ -131,17 +138,18 @@ rk01
 <span class="co">#&gt;  9 2000  Estonia 40-44            996  </span>
 <span class="co">#&gt; 10 2000  Estonia 45-49            110  </span>
 <span class="co">#&gt; # ... with 3,866 more rows</span>
+
 <span class="co"># look at the table title and date of last update</span>
 <span class="kw">comment</span>(rk01)
 <span class="co">#&gt;                               Title                             Updated </span>
 <span class="co">#&gt; "Abortions by age group and county"               "2017-06-06T10:16:55"</span></code></pre></div>
-<p>Created on 2018-02-10 by the <a href="http://reprex.tidyverse.org">reprex package</a> (v0.2.0).</p>
 </div>
-
+</div>
   </div>
 
-  <div class="col-md-3" id="sidebar">
-    <h2>Links</h2>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2 class="hasAnchor">
+<a href="#sidebar" class="anchor"></a>Links</h2>
 <ul class="list-unstyled">
 <li>Browse source code at <br><a href="https://github.com/tpall/boulder">https://​github.com/​tpall/​boulder</a>
 </li>
@@ -160,6 +168,7 @@ rk01
 <li><a href="https://codecov.io/github/tpall/boulder?branch=master"><img src="https://img.shields.io/codecov/c/github/tpall/boulder/master.svg" alt="Coverage Status"></a></li>
 </ul>
 </div>
+
 </div>
 
 

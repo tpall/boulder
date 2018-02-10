@@ -1,39 +1,41 @@
-[![Build Status](https://travis-ci.org/tpall/boulder.svg?branch=master)](https://travis-ci.org/tpall/boulder)
-[![Coverage Status](https://img.shields.io/codecov/c/github/tpall/boulder/master.svg)](https://codecov.io/github/tpall/boulder?branch=master)
 
-## boulder
-boulder is designed for querying and downloading data from [Estonian Health Statistics And Health Research Database](http://pxweb.tai.ee/PXWeb2015/index_en.html) (TAI). 
-Name 'Boulder' is from Brand Estonia toolbox [boulders](https://brand.estonia.ee/design/boulders/).
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+[![Build Status](https://travis-ci.org/tpall/boulder.svg?branch=master)](https://travis-ci.org/tpall/boulder) [![Coverage Status](https://img.shields.io/codecov/c/github/tpall/boulder/master.svg)](https://codecov.io/github/tpall/boulder?branch=master)
+
+boulder
+-------
+
+boulder is designed for querying and downloading data from [Estonian Health Statistics And Health Research Database](http://pxweb.tai.ee/PXWeb2015/index_en.html) (TAI). Name 'Boulder' is from Brand Estonia toolbox [boulders](https://brand.estonia.ee/design/boulders/).
 
 > bouldeR: In our nature, the giant erratic boulders appear unexpectedly in the forest or on the beach. In our visual communication, they play a similar disruptive role. The use of boulders is not compulsory. [Brand Estonia](https://brand.estonia.ee/design/boulders/)
 
-## Verbs
+Verbs
+-----
+
 Package has two main functions `get_all_tables()` and `pull_table()`.
 
-- `get_all_tables()` downloads list of available database tables and 
-- `pull_table()` downloads your table of interest based on table name. 
+-   `get_all_tables()` downloads list of available database tables and
+-   `pull_table()` downloads your table of interest based on table name.
 
-Table descriptions are available in 'Title' column of data frame produced by `get_all_tables()`. 
-By default `get_all_tables()` uses local table supplied with the package.
-To download fresh list of database tables from TAI use `local = FALSE` argument.
+Table descriptions are available in 'Title' column of data frame produced by `get_all_tables()`. By default `get_all_tables()` uses local table supplied with the package. To download fresh list of database tables from TAI use `local = FALSE` argument.
 
+`pull_table()` converts "." and "..", apparently denoting missing values, to NA-s, and filters out some summary rows, generally coded by "0"-s, to reduce table size in attempt to avoid hitting size limit of POST request. Otherwise, variables and their names are not modified, as prepended dots ".", ".." to the variable names indicate their hierarchy. It's strongly advisable to compare downloaded table to the table available on the TAI website.
 
-`pull_table()` converts "." and "..", apparently denoting missing values, to NA-s, and filters out some summary rows, generally coded by "0"-s, to reduce table size in attempt to avoid hitting size limit of POST request.
-Otherwise, variables and their names are not modified, as prepended dots ".", ".." to the variable names indicate their hierarchy.
-It's strongly advisable to compare downloaded table to the table available on the TAI website.
+Package interacts with pxweb API at TAI. There is also official pxweb API package [rOpenGov/pxweb](https://github.com/rOpenGov/pxweb) allowing interactive browsing through databases.
 
-Package interacts with pxweb API at TAI. 
-There is also official pxweb API package [rOpenGov/pxweb](https://github.com/rOpenGov/pxweb) allowing interactive browsing through databases.
+Installation
+------------
 
-
-## Installation
 Install package from GitHub:
+
 ``` r
 devtools::install_github("tpall/boulder")
 ```
 
-## Usage
-Parse data from __json__ file manually downloaded from [Estonian Health Statistics Database](http://pxweb.tai.ee/PXWeb2015/index_en.html) into a data frame.
+Usage
+-----
+
+Parse data from **json** file manually downloaded from [Estonian Health Statistics Database](http://pxweb.tai.ee/PXWeb2015/index_en.html) into a data frame.
 
 ``` r
 library(boulder)
@@ -43,9 +45,11 @@ pk10 <- json_to_df(path_to_PK10.json)
 ```
 
 Download table "RK01" from database:
+
 ``` r
 # load library
 library(boulder)
+
 # check available tables
 tabs <- get_all_tables(lang = "en")
 tabs
@@ -63,6 +67,7 @@ tabs
 #>  9 01Rahvastik 03Abordid RK63  Abortions by the number of woma… 2017-06-0…
 #> 10 01Rahvastik 05Eluiga  OE12  Life expectancy at birth by sex  2017-09-1…
 #> # ... with 1,675 more rows
+
 # dowload table of interest
 rk01 <- pull_table("RK01", lang = "en")
 rk01
@@ -80,11 +85,9 @@ rk01
 #>  9 2000  Estonia 40-44            996  
 #> 10 2000  Estonia 45-49            110  
 #> # ... with 3,866 more rows
+
 # look at the table title and date of last update
 comment(rk01)
 #>                               Title                             Updated 
 #> "Abortions by age group and county"               "2017-06-06T10:16:55"
 ```
-
-Created on 2018-02-10 by the [reprex package](http://reprex.tidyverse.org) (v0.2.0).
-
