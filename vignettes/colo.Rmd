@@ -196,5 +196,5 @@ c18 %>%
 ## Summary
 
 Ok, this is how working with TAI data basically looks like -- find your table and download it, whereas it's advisable to compare downloaded table to the one available on TAI webpage.
-Downloaded tables may need lot of cleaning (getting rid of summary data rows), pay attention to variable names which are nicely human readable but contain whitespace, may contain apostrophes. 
+Downloaded tables may need lot of cleaning (e.g. to get rid of summary data rows), pay attention to variable names which are nicely human readable but contain whitespace, may contain apostrophes. 
 
