@@ -3,7 +3,7 @@ Type: Package
 Title: Download Data From Estonian Health Statistics And Health Research Database
 Authors@R: person("Taavi", "Päll", email = "taavi.pall@credibleinterval.ee",
                   role = c("aut", "cre"))
-Version: 0.3.0.9000
+Version: 0.3.1.9000
 Depends: R (>= 2.10)
 Imports:
     dplyr,
@@ -19,7 +19,8 @@ Imports:
     stats,
     xml2,
     glue,
-    ggplot2
+    ggplot2,
+    viridis
 Description: Quering and downloading data from Estonian Health Statistics And Health Research Database. Package interacts with pxweb API, queries for available tables in database and allows downloads based on table name. Name 'Boulder' is from Brand Estonia toolbox [boulders](https://brand.estonia.ee/design/boulders/). 
 License: MIT + file LICENSE
 Encoding: UTF-8

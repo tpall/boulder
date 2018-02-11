@@ -43,6 +43,7 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(ggplot2)
+library(viridis)
 library(boulder)
 tabs <- get_all_tables(lang = "en")
 tabs
