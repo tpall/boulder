@@ -97,9 +97,10 @@ c18
 c18 %>% 
   mutate(Year = as.numeric(Year)) %>% 
   gather(key, value, -c("Year", "Sex", "Age group")) %>%
-  ggplot(aes(Year, value, linetype = key)) +
+  ggplot(aes(Year, value, color = key)) +
   geom_line() +
   facet_grid(Sex ~ `Age group`) +
+  scale_color_viridis_d(direction = -1) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, size = 6),
         legend.title = element_blank(),
         legend.position = "bottom") +

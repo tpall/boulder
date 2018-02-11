@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 [![Build Status](https://travis-ci.org/tpall/boulder.svg?branch=master)](https://travis-ci.org/tpall/boulder)
 [![Coverage Status](https://img.shields.io/codecov/c/github/tpall/boulder/master.svg)](https://codecov.io/github/tpall/boulder?branch=master)
 
-## boulder -- access Estonian health statistics
+## boulder - access Estonian health statistics
 
 boulder is designed for querying and downloading data from [Estonian Health Statistics And Health Research Database](http://pxweb.tai.ee/PXWeb2015/index_en.html) (TAI). 
 Name 'Boulder' is from Brand Estonia toolbox [boulders](https://brand.estonia.ee/design/boulders/).
