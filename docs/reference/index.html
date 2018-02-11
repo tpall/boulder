@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -33,6 +33,18 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Google analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-113924774-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
   </head>
 
@@ -94,7 +106,7 @@
     <div class="page-header">
       <h1>
         Reference
-        <small>version&nbsp;0.2.1.9000</small>
+        <small>version&nbsp;0.3.0.9000</small>
       </h1>
     </div>
 
@@ -109,24 +121,11 @@
       <tbody>
         <tr>
           <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
+            <h2 id="section-exported-functions" class="hasAnchor"><a href="#section-exported-functions" class="anchor"></a>Exported Functions</h2>
+            <p class="section-desc"><p>Functions exported by boulder</p></p>
           </th>
         </tr>
         <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="eliminate.html">eliminate</a></code> </p>
-          </td>
-          <td><p>Check vars that can be eliminated</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="extract_icd.html">extract_icd</a></code> </p>
-          </td>
-          <td><p>Extract ICD10 string.
-Extracts ICD10 string and expands range when range of codes is shown.</p></td>
-        </tr><tr>
           <!--  -->
           <td>
             <p><code><a href="get_all_tables.html">get_all_tables</a></code> </p>
@@ -135,22 +134,9 @@ Extracts ICD10 string and expands range when range of codes is shown.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="get_json.html">get_json</a></code> </p>
+            <p><code><a href="pull_table.html">pull_table</a></code> </p>
           </td>
-          <td><p>Extract json as data frame from request content
-Checks if request object type is <code>application/json</code>, retrieves contents and converts from json to data frame.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="icd_intersect.html">icd_intersect</a></code> </p>
-          </td>
-          <td><p>Evaluates whether intersect between two vectors with ICD10 codes is longer than zero.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="icd_sums.html">icd_sums</a></code> </p>
-          </td>
-          <td><p>Tries to identify nested ICD10 codes.</p></td>
+          <td><p>Download data table from TAI</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -161,27 +147,10 @@ Extract data from json file downloaded from Estonian Health Statistics and Healt
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="pull_table.html">pull_table</a></code> </p>
+            <p><code><a href="extract_icd.html">extract_icd</a></code> </p>
           </td>
-          <td><p>Download data table from TAI</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="query_api.html">query_api</a></code> </p>
-          </td>
-          <td><p>Run query using GET</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="recode_vars.html">recode_vars</a></code> </p>
-          </td>
-          <td><p>Recode downloaded variables</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="traverse_nodes.html">traverse_nodes</a></code> </p>
-          </td>
-          <td><p>Run query on database nodes</p></td>
+          <td><p>Extract ICD10 string.
+Extracts ICD10 string and expands range when range of codes is shown.</p></td>
         </tr>
       </tbody>
       </table>
@@ -191,7 +160,7 @@ Extract data from json file downloaded from Estonian Health Statistics and Healt
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-exported-functions">Exported Functions</a></li>
     </ul>
   </div>
 </div>

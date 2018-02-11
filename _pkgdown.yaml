@@ -1,0 +1,14 @@
+title: boulder
+url: https://tpall.github.io/boulder/
+template:
+  params:
+    bootswatch: flatly
+    ganalytics: UA-113924774-1
+reference:
+  - title: Exported Functions
+    desc: Functions exported by boulder
+    contents:
+      - '`get_all_tables`'
+      - '`pull_table`'
+      - '`json_to_df`'
+      - '`extract_icd`'

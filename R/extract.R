@@ -179,5 +179,5 @@ icd_sums <- function(site) {
   site_intersects_filtered <- site_intersects[unlist(icd_intersects)]
   do.call(rbind, site_intersects_filtered) %>%
     dplyr::as_data_frame() %>%
-    magrittr::set_colnames(c("Parent", "Site"))
+    set_colnames(c("Parent", "Site"))
 }

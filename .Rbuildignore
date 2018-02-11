@@ -5,3 +5,4 @@
 ^codecov\.yml$
 ^docs$
 README.Rmd
+_pkgdown.yaml

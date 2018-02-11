@@ -18,7 +18,8 @@ Imports:
     readr,
     stats,
     xml2,
-    glue
+    glue,
+    ggplot2
 Description: Quering and downloading data from Estonian Health Statistics And Health Research Database. Package interacts with pxweb API, queries for available tables in database and allows downloads based on table name. Name 'Boulder' is from Brand Estonia toolbox [boulders](https://brand.estonia.ee/design/boulders/). 
 License: MIT + file LICENSE
 Encoding: UTF-8
