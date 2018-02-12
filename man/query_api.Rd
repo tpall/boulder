@@ -7,10 +7,10 @@
 query_api(path = NULL, url)
 }
 \arguments{
-\item{path}{optional path appended to url, defaults to NULL.}
+\item{path}{optional path appended to url, defaults to \code{NULL}.}
 
 \item{url}{the url of the page to retrieve.}
 }
 \description{
-Wrapper around httr::GET
+Wrapper around \pkg{httr}::GET
 }

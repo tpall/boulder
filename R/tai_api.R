@@ -1,8 +1,11 @@
 
 #' Run query using GET
-#' @description Wrapper around httr::GET
+#'
+#' @description Wrapper around \pkg{httr}::GET
+#'
 #' @param url the url of the page to retrieve.
-#' @param path optional path appended to url, defaults to NULL.
+#' @param path optional path appended to url, defaults to \code{NULL}.
+#'
 #' @import httr
 query_api <- function(path = NULL, url) {
 
@@ -18,11 +21,16 @@ query_api <- function(path = NULL, url) {
 }
 
 #' Extract json as data frame from request content
+#'
 #' Checks if request object type is `application/json`, retrieves contents and converts from json to data frame.
+#'
 #' @param resp request object.
+#'
 #' @return a data_frame
+#'
 #' @import httr
 #' @import jsonlite
+#'
 get_json <- function(resp) {
   if (httr::http_type(resp) != "application/json") {
     stop("Input type is not json", call. = FALSE)

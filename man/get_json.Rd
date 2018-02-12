@@ -2,8 +2,7 @@
 % Please edit documentation in R/tai_api.R
 \name{get_json}
 \alias{get_json}
-\title{Extract json as data frame from request content
-Checks if request object type is \code{application/json}, retrieves contents and converts from json to data frame.}
+\title{Extract json as data frame from request content}
 \usage{
 get_json(resp)
 }
@@ -14,6 +13,5 @@ get_json(resp)
 a data_frame
 }
 \description{
-Extract json as data frame from request content
 Checks if request object type is \code{application/json}, retrieves contents and converts from json to data frame.
 }

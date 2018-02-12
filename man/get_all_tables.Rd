@@ -7,11 +7,11 @@
 get_all_tables(local = TRUE, lang = c("et", "en"), verbose = FALSE)
 }
 \arguments{
-\item{local}{whether to return package internal table of available datasets. A logical, defaults to TRUE.}
+\item{local}{whether to return package internal table of available datasets. A logical, defaults to \code{TRUE}.}
 
 \item{lang}{Language. Estonian 'et' or english 'en'. Affects table titles and variable names.}
 
-\item{verbose}{Display messages to track query progress, defaults to TRUE.}
+\item{verbose}{Display messages to track query progress, defaults to \code{TRUE}.}
 }
 \value{
 A data_frame with following columns:

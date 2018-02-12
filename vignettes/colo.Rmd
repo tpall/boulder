@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The aim of the vignette is to give some basic idea about the workflow when accessing TAI datasets [Estonian Health Statistics and Health Research](http://pxweb.tai.ee/PXWeb2015/index_en.html) (TAI) via `boulder` package.
+The aim of the vignette is to give some basic idea about the workflow when accessing [Estonian Health Statistics and Health Research](http://pxweb.tai.ee/PXWeb2015/index_en.html) (TAI) datasets via `boulder` package.
 
 ## Download list of available datasets
 
