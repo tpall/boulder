@@ -11,6 +11,7 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(ggplot2)
+library(viridis)
 library(boulder)
 tabs <- get_all_tables(lang = "en")
 tabs
@@ -45,7 +46,7 @@ colo %>%
   ggplot(aes(Year, value, group = `Age group`, color = `Age group`)) +
   geom_line() +
   facet_wrap(~ Sex) +
-  scale_color_viridis_d() +
+  scale_color_viridis(discrete = TRUE) +
   guides(color = guide_legend(ncol = 2)) +
   labs(title = "Incidence of colon (C18) cancer",
        y = "Age-specific incidence per 100 000")
@@ -80,7 +81,7 @@ colo_mort %>%
   ggplot(aes(Year, value, group = `Age group`, color = `Age group`)) +
   geom_line() +
   facet_wrap(~ Sex) +
-  scale_color_viridis_d() +
+  scale_color_viridis(discrete = TRUE) +
   guides(color = guide_legend(ncol = 2)) +
   labs(title = "Colon cancer (C18) mortality",
        y = "Deaths per 100 000")
@@ -100,7 +101,7 @@ c18 %>%
   ggplot(aes(Year, value, color = key)) +
   geom_line() +
   facet_grid(Sex ~ `Age group`) +
-  scale_color_viridis_d(direction = -1) +
+  scale_color_viridis(discrete = TRUE, direction = -1) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, size = 6),
         legend.title = element_blank(),
         legend.position = "bottom") +
